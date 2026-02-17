@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <link rel="icon" type="image/png" href="snu.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNUTI log : 기록이 성장이 되는 곳</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <style>
+        /* [1. 변수 및 기본 설정] */
+        :root {
+            --exp-color: #FFB703; /* 지수함수: 열정, 기회 (노랑) */
+            --log-color: #00B4C5; /* 로그함수: 기록, 성찰 (첨융색) */
+            --bg-color: #F8F9FA;
+            --text-dark: #212529;
+            --text-gray: #6C757D;
+            --snuti-mint: #00B4C5;        /* 메인 색상 (진한 민트) */
+            --snuti-mint-light: #E0F7FA;
+            --snuti-blue: #0F285D;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        
+        /* [2. 네비게이션] */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee;
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); display: flex; align-items: center; gap: 5px; }
+        .logo span.log { color: var(--log-color); }
+        
+        nav ul { display: flex; gap: 30px; }
+        nav a { font-weight: 600; font-size: 1rem; color: var(--text-dark); }
+        nav a:hover { color: var(--log-color); }
+
+        /* [3. Hero Section] */
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10%;
+            background: linear-gradient(135deg, #fff 0%, #f4f7fa 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-text {
+            flex: 1;
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: #E7F5FF;
+            color: var(--log-color);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        .hero h1 span.exp { color: var(--exp-color); position: relative; }
+        .hero h1 span.log { color: var(--log-color); position: relative; }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            word-break: keep-all;
+        }
+
+        .btn-cta {
+            background: var(--text-dark);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .btn-cta:hover { background: var(--snuti-mint); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(77, 150, 255, 0.3); }
+
+        /* 수학 그래프 애니메이션 영역 */
+        .hero-visual {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        /* SVG 스타일 */
+        svg.graph {
+            width: 500px;
+            height: 500px;
+            overflow: visible;
+        }
+        
+        /* 축 스타일 */
+        .axis { stroke: #ddd; stroke-width: 2; }
+        
+        /* 그래프 라인 스타일 */
+        .line-exp {
+            fill: none; stroke: var(--exp-color); stroke-width: 4;
+            stroke-dasharray: 1000; stroke-dashoffset: 1000;
+            animation: drawLine 2s ease-out forwards 0.5s;
+            filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.5));
+        }
+        
+        .line-log {
+            fill: none; stroke: var(--log-color); stroke-width: 4;
+            stroke-dasharray: 1000; stroke-dashoffset: 1000;
+            animation: drawLine 2s ease-out forwards 0.5s;
+            filter: drop-shadow(0 0 10px rgba(77, 150, 255, 0.5));
+        }
+
+        .line-identity {
+            fill: none; stroke: #aaa; stroke-width: 2; stroke-dasharray: 10;
+            opacity: 0.5;
+        }
+
+        /* 텍스트 레이블 애니메이션 */
+        .graph-label {
+            font-size: 14px; font-weight: bold; opacity: 0;
+            animation: fadeIn 1s ease-out forwards 2s;
+        }
+
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* [4. 공통 섹션 스타일] */
+        section { padding: 100px 10%; max-width: 1400px; margin: 0 auto; }
+        .section-header { margin-bottom: 60px; text-align: center; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        .section-header p { color: var(--text-gray); font-size: 1.1rem; }
+
+        /* [5. About Section] */
+        .about-content {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+        }
+        .about-text h3 { font-size: 1.8rem; margin-bottom: 20px; line-height: 1.4; }
+        .about-text p { margin-bottom: 15px; color: var(--text-gray); text-align: justify; }
+        .quote-box {
+            background: white; padding: 40px; border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05); border-left: 5px solid var(--log-color);
+        }
+        .quote-box p { font-size: 1.05rem; color: #555; margin-bottom: 10px; }
+        .quote-box strong { color: var(--snuti-blue); }
+
+        /* [About 더보기 버튼 스타일] */
+        .btn-read-more {
+            background: none;
+            border: none;
+            color: var(--snuti-blue);
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            margin-top: 15px;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+        }
+        .btn-read-more:hover {
+            border-bottom: 2px solid var(--snuti-blue);
+        }
+
+        /* [About 숨겨진 영역 애니메이션] */
+        .about-hidden-area {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background: #f1f3f5; /* 연한 회색 배경으로 구분 */
+            border-radius: 20px;
+            margin-top: 0;
+        }
+        
+        .about-hidden-area.open {
+            max-height: 800px; /* 충분히 큰 높이 */
+            opacity: 1;
+            margin-top: 40px;
+            padding: 40px;
+        }
+
+        .full-text-content h4 {
+            color: var(--snuti-blue);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        .full-text-content p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        /* [6. How it Works (Method)] */
+        .steps-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+        }
+        .step-card {
+            background: white; padding: 40px 30px; border-radius: 20px;
+            text-align: center; transition: 0.3s; border: 1px solid #eee;
+        }
+        .step-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--log-color); }
+        .step-num {
+            width: 50px; height: 50px; background: var(--log-color); color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; font-weight: bold; margin: 0 auto 20px auto;
+        }
+        .step-card h3 { margin-bottom: 15px; }
+        .step-card p { font-size: 0.95rem; color: var(--text-gray); }
+
+        /* [7. Archives (Previous Posts)] */
+        .slogan-filter-container {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 0;
+            background: linear-gradient(to right, rgba(248,249,250,0), rgba(248,249,250,1), rgba(248,249,250,0));
+        }
+
+        .slogan-text {
+            font-size: 2.5rem;
+            font-weight: 300; /* 얇은 글씨체로 감성적인 느낌 */
+            color: #ccc;      /* 클릭 안되는 글자는 연하게 */
+            line-height: 1.4;
+            letter-spacing: -0.5px;
+            word-break: keep-all;
+        }
+
+        /* 클릭 가능한 키워드 스타일 */
+        .filter-word {
+            font-weight: 800; /* 키워드만 굵게 */
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 0 5px;
+            color: #999; /* 기본 상태는 약간 진한 회색 */
+            border-bottom: 3px solid transparent;
+        }
+
+        /* [Hover & Active 효과] */
+        .filter-word:hover, .filter-word.active {
+            transform: translateY(-3px);
+        }
+
+        /* 각 키워드별 고유 색상 (활성 상태일 때) */
+        .filter-word[data-tag="함께"]:hover, .filter-word[data-tag="함께"].active {
+            color: #FF6B6B; border-bottom-color: #FF6B6B;
+        }
+        .filter-word[data-tag="꿈"]:hover, .filter-word[data-tag="꿈"].active {
+            color: #FFB703; border-bottom-color: #FFB703;
+        }
+        .filter-word[data-tag="미래"]:hover, .filter-word[data-tag="미래"].active {
+            color: var(--snuti-mint); border-bottom-color: var(--snuti-mint);
+        }
+        .filter-word[data-tag="도전"]:hover, .filter-word[data-tag="도전"].active {
+            color: #4D96FF; border-bottom-color: #4D96FF;
+        }
+
+        /* 3. 글 목록 리스트 */
+        .post-list-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            min-height: 200px;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            cursor: pointer;
+            border: 1px solid transparent;
+            display: flex;
+            flex-direction: column;
+            animation: fadeInCard 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeInCard {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--log-color);
+        }
+
+        .post-tag-badge {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin: 20px 20px 10px 20px;
+            background: #eee;
+            color: #555;
+            width: fit-content;
+        }
+
+        .post-content {
+            padding: 0 20px 20px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-title { font-size: 1.3rem; margin-bottom: 10px; font-weight: 700; color: var(--text-dark); }
+        .post-desc { font-size: 0.95rem; color: var(--text-gray); margin-bottom: 15px; flex: 1; line-height: 1.5; }
+        .post-meta { font-size: 0.85rem; color: #999; border-top: 1px solid #eee; padding-top: 15px; display: flex; justify-content: space-between;}
+
+        /* 4. 모달 (전체보기) 스타일 */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: none; /* JS로 제어 */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.open { display: flex; }
+
+        .modal-content {
+            background: white;
+            width: 100%; max-width: 800px;
+            max-height: 90vh;
+            border-radius: 20px;
+            position: relative;
+            overflow-y: auto;
+            animation: scaleUp 0.3s ease-out;
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 30px 40px;
+            border-bottom: 1px solid #eee;
+            position: sticky; top: 0; background: white; z-index: 10;
+        }
+
+        .btn-close {
+            position: absolute; top: 20px; right: 20px;
+            background: none; border: none; font-size: 2rem; cursor: pointer; color: #999;
+        }
+        .btn-close:hover { color: var(--text-dark); }
+
+        .modal-body { padding: 40px; font-size: 1.1rem; line-height: 1.8; color: #333; white-space: pre-line; }
+        .modal-tag { color: var(--log-color); font-weight: bold; font-size: 0.9rem; margin-bottom: 10px; display: block;}
+        .modal-title { font-size: 2rem; margin-bottom: 10px; font-weight: 800; }
+        .modal-info { color: #888; font-size: 0.9rem; margin-bottom: 0; }
+
+
+        /* [8. Contact & Footer] */
+        .contact-box {
+            background: var(--snuti-mint-light); color: black; padding: 60px;
+            border-radius: 30px; text-align: center;
+        }
+        .contact-box h2 { font-size: 2rem; margin-bottom: 20px; }
+        .contact-box p { margin-bottom: 30px; opacity: 0.9; }
+
+        /* [Contact Section 스타일] */
+        .contact-actions {
+            display: flex; gap: 15px; justify-content: center; margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            padding: 15px 35px; border-radius: 50px; font-weight: bold; 
+            cursor: pointer; transition: 0.3s; border: none; font-size: 1rem;
+        }
+
+        .contact-btn.primary {
+            background: white; color: var(--snuti-blue);
+        }
+        .contact-btn.secondary {
+            background: var(--snuti-mint); color: white; border: 1px solid var(--snuti-mint);
+        }
+        .contact-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* [토글 영역 애니메이션] */
+        .team-hidden-area {
+            max-height: 0; opacity: 0; overflow: hidden;
+            transition: all 0.5s ease-in-out;
+        }
+        .team-hidden-area.open {
+            max-height: 500px; opacity: 1; margin-top: 30px;
+        }
+
+        /* [가로 스크롤 카드 레이아웃] */
+        .team-scroll-wrapper {
+            display: flex; gap: 20px;
+            overflow-x: auto; /* 가로 스크롤 허용 */
+            padding: 10px;
+            justify-content: center; /* PC에서는 중앙 정렬 */
+            -webkit-overflow-scrolling: touch; /* 모바일 부드러운 스크롤 */
+            scrollbar-width: none; /* 스크롤바 숨김 (Firefox) */
+        }
+        .team-scroll-wrapper::-webkit-scrollbar { display: none; } /* 스크롤바 숨김 (Chrome/Safari) */
+
+        /* [개별 멤버 카드] */
+        .member-card {
+            background: white; color: var(--text-dark);
+            min-width: 260px; max-width: 260px; /* 카드 크기 고정 */
+            padding: 25px; border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            flex-shrink: 0; /* 크기 줄어들지 않게 설정 */
+        }
+        .member-icon { font-size: 2rem; margin-bottom: 10px; }
+        .member-card h3 { font-size: 1.2rem; margin-bottom: 5px; color: var(--snuti-blue); }
+        .member-role { display: block; font-size: 0.8rem; color: #999; margin-bottom: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .member-desc { font-size: 0.9rem; color: #555; margin-bottom: 20px; line-height: 1.4; word-break: keep-all; height: 40px;} /* 높이 고정으로 정렬 맞춤 */
+        .member-email { 
+            display: inline-block; padding: 8px 15px; background: #f1f3f5; 
+            border-radius: 15px; font-size: 0.85rem; color: var(--text-dark); font-weight: bold;
+        }
+        .member-email:hover { background: var(--snuti-mint); color: white; }
+
+        footer {
+            background: #111; color: #666; padding: 50px 10%;
+            text-align: center; font-size: 0.9rem; margin-top: 100px;
+        }
+
+        /* 모바일 반응형 */
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav { display: none; } /* 모바일 메뉴 생략 */
+            .hero { flex-direction: column; height: auto; padding: 120px 20px 60px 20px; text-align: center; }
+            .hero-text { margin-bottom: 50px; }
+            .hero h1 { font-size: 2.5rem; }
+            svg.graph { width: 100%; height: auto; max-width: 350px; }
+            .about-content, .steps-grid, .archive-grid { grid-template-columns: 1fr; }
+            .slogan-text { font-size: 1.8rem; }
+            .mobile-break { display: block; } /* 모바일에서 줄바꿈 */
+        }
+
+        @media (min-width: 769px) {
+            .mobile-break { display: none; } /* PC에서는 한 줄로 */
+        }
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">
+            SNUTI <span class="log">log</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#method">How to Log</a></li>
+                <li><a href="#archives">Archives</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <span class="hero-label">SNUTI Students' Record</span>
+            <h1>
+                경험은 <span class="exp">ExP</span>onential<br>
+                기록은 <span class="log">Log</span>arithmic
+            </h1>
+            <p>
+                SNUTI.ExP( )로 폭발적으로 성장하고,<br>
+                SNUTI log로 차곡차곡 기록합니다.<br>
+                서로가 서로의 영감이 되는 이곳에서 당신의 이야기를 시작하세요.
+            </p>
+            <a href="#method" class="btn-cta">기록 시작하기</a>
+        </div>
+        
+        <div class="hero-visual">
+            <svg class="graph" viewBox="0 0 400 400">
+                <line x1="20" y1="380" x2="380" y2="380" class="axis" /> <line x1="20" y1="380" x2="20" y2="20" class="axis" />   <line x1="20" y1="380" x2="380" y2="20" class="line-identity" />
+                
+                <path d="M 20 370 Q 150 360 250 20" class="line-exp" />
+                
+                <path d="M 30 380 Q 40 250 380 150" class="line-log" />
+
+                <text x="260" y="40" fill="#FFB703" class="graph-label">SNUTI.ExP( )</text>
+                <text x="280" y="140" fill="#00B4C5" class="graph-label">SNUTI log</text>
+            </svg>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-header">
+            <h2>About SNUTI Log</h2>
+            <p>우리의 일상을 기록하고, 서로의 영감이 됩니다.</p>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>공식적인 이야기 너머,<br>진짜 우리들의 성장기</h3>
+                <p>
+                    SNUTI log는 서울대학교 첨단융합학부 학생들이 함께 만들어가는 꿈과 도전의 여정을 기록하는 공간입니다. 
+                    화려한 결과물뿐만 아니라, 평범한 학교 생활과 일상 속에서 일어나는 작은 성장의 순간들을 포착합니다.
+                </p>
+                <p>
+                    첨단융합학부의 교수진과 학생들은 열정적으로 소통하며 시너지를 내고 있습니다. 
+                    우리는 이 소중한 연결이 휘발되지 않고, 서로에게 영감이 되어 '실천'으로 이어지길 바랍니다.
+                </p>
+                
+                <button class="btn-read-more" onclick="toggleAbout()">소개글 전문 확인하기 ▾</button>
+            </div>
+
+            <div class="quote-box">
+                <p>
+                    "SNUTI log가 자신의 이야기를 다른 친구들과 나누고 기록하는 첨단융합학부의 일기장이 되길 바랍니다. 
+                    각각의 이야기들은 서로에게 특별한 배움과 새로운 영감을 나눠줄 것입니다."
+                </p>
+                <br>
+                <strong>- SNUTI log 운영진 드림</strong>
+            </div>
+        </div>
+
+        <div id="about-full-text" class="about-hidden-area">
+            <div class="full-text-content">
+                <h4>왜 SNUTI Log인가요?</h4>
+                <p>
+                    첨단융합학부에는 SNUTI.ExP( )를 비롯한 여러 프로그램과 활동의 기회들이 주어집니다. 
+                    그리고 수많은 학생들과 교수진의 노력으로 친구들과 함께 꾸준히 성장할 수 있게 됩니다.
+                    SNUTI log는 이러한 환경 속에서 구성원 간의 소통과 연결을 강화시켜 시너지를 내며 성장하는 데에 도움이 되고자 만들어졌습니다.
+                </p>
+                <br>
+                <h4>기록의 힘을 믿습니다</h4>
+                <p>
+                    그동안 학교생활을 돌이켜보면 교수님들과 학생들이 교류하려 하시는 노력들이 정말 많았습니다. 
+                    그러나 한편으로는 서로가 서로에게 어떤 영향을 주고 어떤 것들을 함께 이루어갔는지를 공유하기가 힘든 것에 아쉬운 마음이 항상 있었습니다.
+                </p>
+                <p>
+                    그렇기에 SNUTI log를 통해 서로의 이야기를 들으며 영감을 받고 실천으로 옮겨 
+                    각자만의 새로운 이야기를 만들어갈 수 있다면 뜻깊은 성장을 이룰 수 있을 것이라 생각합니다.
+                </p>
+                <br>
+                <p>
+                    부담 없이 주변에 말하지 못했던 여러분의 빛나는 이야기들을 함께 만드는 SNUTI log에 기록하고 나눠주세요. ☺️
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="method" style="background-color: #fff;">
+        <div class="section-header">
+            <h2>How to Log</h2>
+            <p>여러분의 이야기가 뉴스와 역사가 되는 과정입니다.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <h3>기록 작성</h3>
+                <p>활동 사진, 배경, 느낀 점 등을 자유롭게 작성해주세요. 작성한 기록을 공유하고 싶다면 Contact의 Email로 보내주세요.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <h3>편집 및 발행</h3>
+                <p>첨단융합학부 학생 기자단 TITLE과 SNUTI log 팀이 여러분의 초고를 바탕으로 멋진 소식지로 다듬습니다.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <h3>공유 및 아카이빙</h3>
+                <p>완성된 이야기는 뉴스레터로 공유되고, 이곳 웹사이트와 향후 발간될 책자로 남아 후배들의 길잡이가 됩니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="archives">
+        <div class="section-header">
+            <h2>Archive Logs</h2>
+            <p>키워드를 클릭하여 관련된 이야기를 만나보세요.</p>
+        </div>
+        
+        <div class="slogan-filter-container">
+            <h2 class="slogan-text">
+                <span class="filter-word" data-tag="함께">함께</span> 빚어낼 자유로운 
+                <span class="filter-word" data-tag="꿈">꿈</span>,<br class="mobile-break">
+                <span class="filter-word" data-tag="미래">미래</span>를 여는 담대한 
+                <span class="filter-word" data-tag="도전">도전</span>
+            </h2>
+        </div>
+
+        <div class="post-list-container" id="post-container">
+            </div>
+    </section>
+
+    <div class="modal-overlay" id="post-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-close" onclick="closeModal()">&times;</button>
+                <span class="modal-tag" id="m-tag">TAG NAME</span>
+                <h2 class="modal-title" id="m-title">제목이 들어갑니다</h2>
+                <p class="modal-info" id="m-info">작성자 | 날짜</p>
+            </div>
+            <div class="modal-body" id="m-body">
+                본문 내용이 여기에 들어갑니다.
+            </div>
+        </div>
+    </div>
+
+
+    <section id="contact">
+        <div class="contact-box">
+            <h2>함께 이야기를 쌓아가요</h2>
+            <p>
+                어떤 이야기를 적어야 할지 고민되시나요?<br>
+                혹은 이 기록의 여정에 운영진으로 함께하고 싶으신가요?<br>
+                언제든 편하게 연락주세요.
+            </p>
+            
+            <div class="contact-actions">
+                <a href="mailto:rameelee@snu.ac.kr" class="contact-btn primary">문의하기 (Email)</a>
+            <button class="contact-btn secondary" onclick="toggleTeam()">SNUTI log 친구들</button>
+            </div>
+
+            <div id="team-area" class="team-hidden-area">
+                <div class="team-scroll-wrapper">
+                    <div class="member-card">
+                        <div class="member-icon">🌱</div>
+                        <h3>전원준</h3>
+                        <span class="member-role">Planning Lead</span>
+                        <p class="member-desc">"한마디"</p>
+                        <a href="mailto:juneie24@snu.ac.kr" class="member-email">juneie24@snu.ac.kr</a>
+                    </div>
+
+                    <div class="member-card">
+                        <div class="member-icon">✍️</div>
+                        <h3>이희서</h3>
+                        <span class="member-role">Editor</span>
+                        <p class="member-desc">"여러분의 빛나는 경험을 뉴스레터로 담아냅니다."</p>
+                        <a href="mailto:rameelee@snu.ac.kr" class="member-email">rameelee@snu.ac.kr</a>
+                    </div>
+
+                    <div class="member-card">
+                        <div class="member-icon">📬</div>
+                        <h3>YOU</h3>
+                        <span class="member-role">writer</span>
+                        <p class="member-desc">"SNUTI log는 여러분의 이야기로 완성됩니다!"</p>
+                        <a href="mailto:rameelee@snu.ac.kr" class="member-email">글 보내기</a>
+                    </div>
+                </div>
+            </div>
+
+            <br><br>
+            <p style="font-size: 0.9rem; opacity: 0.7;">
+                * 작성된 글의 주인공에게 연락하고 싶다면, 해당 글의 하단 연락처를 참고해주세요.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <strong>SNUTI log</strong>
+        <p>서울대학교 첨단융합학부 학생 활동 아카이빙 커뮤니티</p>
+        <p>&copy; 2026 SNUTI log. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // ==========================================
+        // [1. 데이터베이스] 여기에 글을 추가하면 자동으로 반영됩니다.
+        // ==========================================
+        const postData = [
+            {
+                id: 1,
+                tag: "도전",
+                title: "부산 BEXCO 파이널 피칭 도전기",
+                author: "25학번 창업팀",
+                date: "",
+                desc: "첨융 25학번 창업팀이 경진대회 우수 성적으로 최종 무대에 서기까지의 치열했던 준비 과정.",
+                content: `이곳에 본문 내용을 입력하세요.`
+            },
+            {
+                id: 2,
+                tag: "함께",
+                title: "관악구 어르신 대상 AI 교육 봉사",
+                author: "socieTI",
+                date: "",
+                desc: "KTI 챌린지의 영감이 사회공헌으로. 어르신들과 함께한 따뜻한 디지털 교육 현장.",
+                content: `이곳에 본문 내용을 입력하세요.`
+            },
+            {
+                id: 3,
+                tag: "꿈",
+                title: "실리콘 밸리에서 관악까지: SNU Connect Community",
+                author: "SNU Connect",
+                date: "",
+                desc: "24-25 하계 실리콘 밸리 연수 경험을 공유하며 형성된 선후배 커뮤니티 이야기.",
+                content: `실리콘밸리라는 공유된 경험을 바탕으로 24학번, 25학번, 그리고 타학과 선배들이 모였습니다.
+                
+                현지에서 느꼈던 혁신의 문화를 한국에 돌아와서도 이어가기 위해 매주 온라인 영감 공유회를 진행하고 있습니다. 박세원, 정윤지, 김은기, 이재규 멘토님과 함께하는 세션은 우리에게 늘 새로운 자극이 됩니다.
+                단순한 친목을 넘어 글로벌 리더로 성장하기 위한 발판이 되고 있습니다.`
+            },
+            {
+                id: 5,
+                tag: "미래",
+                title: "이곳에 제목을 입력하세요",
+                author: "작성자 이름",
+                date: "",
+                desc: "이곳에 간단한 설명을 입력하세요.",
+                content: `이곳에 본문 내용을 입력하세요.`
+            }
+        ];
+
+        // ==========================================
+        // [2. 로직] 건드리지 않아도 잘 작동합니다.
+        // ==========================================
+        
+        const container = document.getElementById('post-container');
+        const modal = document.getElementById('post-modal');
+        const filterWords = document.querySelectorAll('.filter-word');
+
+        // 초기 화면: 모든 글 보여주기
+        renderPosts('All');
+
+        // 링 클릭 이벤트 설정
+        filterWords.forEach(word => {
+            word.addEventListener('click', () => {
+                const isActive = word.classList.contains('active');
+                
+                // 모든 단어 비활성화
+                filterWords.forEach(w => w.classList.remove('active'));
+
+                if (!isActive) {
+                    // 클릭한 단어만 활성화
+                    word.classList.add('active');
+                    const selectedTag = word.getAttribute('data-tag');
+                    renderPosts(selectedTag);
+                } else {
+                    // 해제 시 전체보기
+                    renderPosts('All');
+                }
+            });
+        });
+
+        // 글 목록 렌더링 함수
+        function renderPosts(filterTag) {
+            container.innerHTML = ''; // 기존 목록 비우기
+            
+            const filteredData = filterTag === 'All' 
+                ? postData 
+                : postData.filter(post => post.tag === filterTag);
+
+            if (filteredData.length === 0) {
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">해당 카테고리에 아직 글이 없습니다.</p>';
+                return;
+            }
+
+            filteredData.forEach(post => {
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.onclick = () => openModal(post); // 클릭 시 모달 열기
+
+                card.innerHTML = `
+                    <span class="post-tag-badge" style="color:${getTagColor(post.tag)}">${post.tag}</span>
+                    <div class="post-content">
+                        <h3 class="post-title">${post.title}</h3>
+                        <p class="post-desc">${post.desc}</p>
+                        <div class="post-meta">
+                            <span>${post.author}</span>
+                            <span>${post.date}</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 모달 열기
+        function openModal(post) {
+            document.getElementById('m-tag').innerText = post.tag;
+            document.getElementById('m-tag').style.color = getTagColor(post.tag);
+            document.getElementById('m-title').innerText = post.title;
+            document.getElementById('m-info').innerText = `${post.author} | ${post.date}`;
+            document.getElementById('m-body').innerText = post.content;
+            
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+        }
+
+        // 모달 닫기
+        function closeModal() {
+            modal.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 모달 배경 클릭 시 닫기
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // 태그별 색상 매핑 도우미
+        function getTagColor(tag) {
+            const colors = {
+                '함께': '#FF6B6B',   // Coral
+                '꿈': '#FFB703',     // Yellow/Gold
+                '미래': '#00B4C5',   // SNUTI Mint
+                '도전': '#4D96FF'    // Blue
+            };
+            return colors[tag] || '#555';
+        }
+
+        // 운영진 소개 토글 기능
+        function toggleTeam() {
+            const teamArea = document.getElementById('team-area');
+            const btn = document.querySelector('.contact-btn.secondary');
+            
+            // 클래스 토글 (열기/닫기)
+            teamArea.classList.toggle('open');
+            
+            // 버튼 텍스트 변경 (선택사항)
+            if (teamArea.classList.contains('open')) {
+                btn.innerText = "닫기 X";
+                btn.style.background = "var(--snuti-mint)";
+            } else {
+                btn.innerText = "SNUTI log 친구들";
+                btn.style.background = "var(--snuti-mint)";
+            }
+        }
+
+        // About 전문 보기 토글 기능
+        function toggleAbout() {
+            const aboutArea = document.getElementById('about-full-text');
+            const btn = document.querySelector('.btn-read-more');
+            
+            aboutArea.classList.toggle('open');
+            
+            if (aboutArea.classList.contains('open')) {
+                btn.innerText = "소개글 접기 ▴";
+            } else {
+                btn.innerText = "소개글 전문 확인하기 ▾";
+            }
+        }
+
+    </script>
+</body>
+</html>
