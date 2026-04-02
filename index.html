@@ -627,7 +627,7 @@
         </div>
     </section>
 
-    <section id="archives">
+<section id="archives">
         <div class="section-header">
             <h2>Archive Logs</h2>
             <p>키워드를 클릭하여 관련된 이야기를 만나보세요.</p>
@@ -641,60 +641,48 @@
                 <span class="filter-word" data-tag="도전">도전</span>
             </h2>
         </div>
-    
-        <div class="modal-overlay" id="post-modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="btn-close" onclick="closeModal()">&times;</button>
-                    <span class="modal-tag" id="m-tag">TAG NAME</span>
-                    <h2 class="modal-title" id="m-title">제목이 들어갑니다</h2>
-                    <p class="modal-info" id="m-info">작성자 | 날짜</p>
-                </div>
-                <div class="modal-body" id="m-body">
-                    본문 내용이 여기에 들어갑니다.
-                </div>
+
+        <div class="post-list-container" id="post-container">
             </div>
-        </div>
-    
-        <div class="modal-overlay" id="post-modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="btn-close" onclick="closeModal('post-modal')">&times;</button>
-                    <span class="modal-tag" id="m-tag">TAG</span>
-                    <h2 class="modal-title" id="m-title">제목</h2>
-                    <p class="modal-info" id="m-info">작성자 | 날짜</p>
-                </div>
-                <div class="modal-body" id="m-body">내용</div>
-            </div>
-        </div>
-    
-        <div class="modal-overlay" id="write-modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="btn-close" onclick="closeModal('write-modal')">&times;</button>
-                    <h2 class="modal-title">새로운 이야기 투고하기</h2>
-                    <p class="modal-info">작성하신 글은 운영자의 구글 시트로 안전하게 전송됩니다.</p>
-                </div>
-                <div class="modal-body">
-                    <form class="write-form" id="submitForm" onsubmit="submitPost(event)">
-                        <select id="w-tag" required>
-                            <option value="" disabled selected>태그 선택 (함께, 꿈, 미래, 도전)</option>
-                            <option value="함께">함께</option>
-                            <option value="꿈">꿈</option>
-                            <option value="미래">미래</option>
-                            <option value="도전">도전</option>
-                        </select>
-                        <input type="text" id="w-title" placeholder="글 제목을 입력하세요" required>
-                        <input type="text" id="w-author" placeholder="작성자 이름/학번/전공" required>
-                        <input type="text" id="w-desc" placeholder="리스트에 보여질 한 줄 요약을 적어주세요" required>
-                        <textarea id="w-content" placeholder="본문 내용을 자유롭게 작성해주세요." required></textarea>
-                        <button type="submit" id="submitBtn">원고 전송하기</button>
-                    </form>
-                </div>
-            </div>
-        </div>
     </section>
 
+    <div class="modal-overlay" id="post-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-close" onclick="closeModal('post-modal')">&times;</button>
+                <span class="modal-tag" id="m-tag">TAG</span>
+                <h2 class="modal-title" id="m-title">제목</h2>
+                <p class="modal-info" id="m-info">작성자 | 날짜</p>
+            </div>
+            <div class="modal-body" id="m-body">내용</div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="write-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-close" onclick="closeModal('write-modal')">&times;</button>
+                <h2 class="modal-title">새로운 이야기 투고하기</h2>
+                <p class="modal-info">작성하신 글은 운영자의 구글 시트로 안전하게 전송됩니다.</p>
+            </div>
+            <div class="modal-body">
+                <form class="write-form" id="submitForm" onsubmit="submitPost(event)">
+                    <select id="w-tag" required>
+                        <option value="" disabled selected>태그 선택 (함께, 꿈, 미래, 도전)</option>
+                        <option value="함께">함께</option>
+                        <option value="꿈">꿈</option>
+                        <option value="미래">미래</option>
+                        <option value="도전">도전</option>
+                    </select>
+                    <input type="text" id="w-title" placeholder="글 제목을 입력하세요" required>
+                    <input type="text" id="w-author" placeholder="작성자 이름/학번/전공" required>
+                    <input type="text" id="w-desc" placeholder="리스트에 보여질 한 줄 요약을 적어주세요" required>
+                    <textarea id="w-content" placeholder="본문 내용을 자유롭게 작성해주세요." required></textarea>
+                    <button type="submit" id="submitBtn">원고 전송하기</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <section id="contact">
         <div class="contact-box">
@@ -751,21 +739,39 @@
         <p>&copy; 2026 SNUTI log. All rights reserved.</p>
     </footer>
 
-    
     <script>
-        // ==========================================
-        // [중요] 여기에 Apps Script에서 복사한 '웹 앱 URL'을 넣으세요!
-        // ==========================================
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQ5iX4i9iwEAPrmuW-we495sQyTEFzNkG8k5MvvAac6XTRfOQf9kqSOclakqfMjMeN/exec"; 
         
-        let postData = []; // 서버에서 받아올 데이터를 담을 변수
-
         const container = document.getElementById('post-container');
         const filterWords = document.querySelectorAll('.filter-word');
         
-        // 2. 구글 시트로 데이터 보내기 (POST)
+        // 데이터베이스 (정적 데이터)
+        const postData = [
+            {
+                id: 1, tag: "도전", title: "부산 BEXCO 파이널 피칭 도전기", author: "25학번 창업팀", date: "2026-03-01",
+                desc: "첨융 25학번 창업팀이 경진대회 우수 성적으로 최종 무대에 서기까지의 치열했던 준비 과정.",
+                content: `이곳에 본문 내용을 입력하세요.`
+            },
+            {
+                id: 2, tag: "함께", title: "관악구 어르신 대상 AI 교육 봉사", author: "socieTI", date: "2026-02-15",
+                desc: "KTI 챌린지의 영감이 사회공헌으로. 어르신들과 함께한 따뜻한 디지털 교육 현장.",
+                content: `이곳에 본문 내용을 입력하세요.`
+            },
+            {
+                id: 3, tag: "꿈", title: "실리콘 밸리에서 관악까지: SNU Connect Community", author: "SNU Connect", date: "2026-01-20",
+                desc: "24-25 하계 실리콘 밸리 연수 경험을 공유하며 형성된 선후배 커뮤니티 이야기.",
+                content: `실리콘밸리라는 공유된 경험을 바탕으로 24학번, 25학번, 그리고 타학과 선배들이 모였습니다.
+                
+                현지에서 느꼈던 혁신의 문화를 한국에 돌아와서도 이어가기 위해 매주 온라인 영감 공유회를 진행하고 있습니다. 박세원, 정윤지, 김은기, 이재규 멘토님과 함께하는 세션은 우리에게 늘 새로운 자극이 됩니다.
+                단순한 친목을 넘어 글로벌 리더로 성장하기 위한 발판이 되고 있습니다.`
+            }
+        ];
+
+        // ----------------------------------------------------
+        // [1. 구글 시트로 투고 기능 (POST)]
+        // ----------------------------------------------------
         async function submitPost(event) {
-            event.preventDefault(); // 폼 기본 새로고침 방지
+            event.preventDefault(); 
             const btn = document.getElementById('submitBtn');
             btn.innerText = "전송 중입니다... 🚀";
             btn.disabled = true;
@@ -779,115 +785,50 @@
             };
 
             try {
+                // 구글 시트로 데이터 전송 (CORS 문제를 피하기 위해 no-cors 옵션 추가)
                 await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'text/plain' }, // 구글 앱스 스크립트 호환성을 위해 text/plain 사용
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    mode: 'no-cors', // 구글 폼/시트 전송 시 브라우저 차단 우회
                     body: JSON.stringify(payload)
                 });
                 
-                alert("성공적으로 투고되었습니다! 페이지를 새로고침하여 확인해보세요.");
+                alert("성공적으로 투고되었습니다!");
                 closeModal('write-modal');
                 document.getElementById('submitForm').reset();
-                fetchPosts(); // 새 데이터로 즉시 리렌더링
+                // [수정 완료] fetchPosts(); 삭제됨
                 
             } catch (error) {
-                alert("전송에 실패했습니다. 관리자에게 문의하세요.");
+                alert("전송에 실패했습니다. 네트워크를 확인해주세요.");
             } finally {
                 btn.innerText = "원고 전송하기";
                 btn.disabled = false;
             }
         }
 
-        function openWriteModal() {
-            document.getElementById('write-modal').classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('open');
-            document.body.style.overflow = 'auto';
-        }
-
-        // ==========================================
-        // [1. 데이터베이스] 여기에 글을 추가하면 자동으로 반영됩니다.
-        // ==========================================
-        const postData = [
-            {
-                id: 1,
-                tag: "도전",
-                title: "부산 BEXCO 파이널 피칭 도전기",
-                author: "25학번 창업팀",
-                date: "",
-                desc: "첨융 25학번 창업팀이 경진대회 우수 성적으로 최종 무대에 서기까지의 치열했던 준비 과정.",
-                content: `이곳에 본문 내용을 입력하세요.`
-            },
-            {
-                id: 2,
-                tag: "함께",
-                title: "관악구 어르신 대상 AI 교육 봉사",
-                author: "socieTI",
-                date: "",
-                desc: "KTI 챌린지의 영감이 사회공헌으로. 어르신들과 함께한 따뜻한 디지털 교육 현장.",
-                content: `이곳에 본문 내용을 입력하세요.`
-            },
-            {
-                id: 3,
-                tag: "꿈",
-                title: "실리콘 밸리에서 관악까지: SNU Connect Community",
-                author: "SNU Connect",
-                date: "",
-                desc: "24-25 하계 실리콘 밸리 연수 경험을 공유하며 형성된 선후배 커뮤니티 이야기.",
-                content: `실리콘밸리라는 공유된 경험을 바탕으로 24학번, 25학번, 그리고 타학과 선배들이 모였습니다.
-                
-                현지에서 느꼈던 혁신의 문화를 한국에 돌아와서도 이어가기 위해 매주 온라인 영감 공유회를 진행하고 있습니다. 박세원, 정윤지, 김은기, 이재규 멘토님과 함께하는 세션은 우리에게 늘 새로운 자극이 됩니다.
-                단순한 친목을 넘어 글로벌 리더로 성장하기 위한 발판이 되고 있습니다.`
-            },
-            {
-                id: 5,
-                tag: "미래",
-                title: "이곳에 제목을 입력하세요",
-                author: "작성자 이름",
-                date: "",
-                desc: "이곳에 간단한 설명을 입력하세요.",
-                content: `이곳에 본문 내용을 입력하세요.`
-            }
-        ];
-
-        // ==========================================
-        // [2. 로직] 건드리지 않아도 잘 작동합니다.
-        // ==========================================
+        // ----------------------------------------------------
+        // [2. UI 제어 기능 (렌더링, 정렬, 모달)]
+        // ----------------------------------------------------
         
-        const container = document.getElementById('post-container');
-        const modal = document.getElementById('post-modal');
-        const filterWords = document.querySelectorAll('.filter-word');
-
-        // 초기 화면: 모든 글 보여주기
+        // 초기 화면 렌더링
         renderPosts('All');
 
-        // 링 클릭 이벤트 설정
         filterWords.forEach(word => {
             word.addEventListener('click', () => {
                 const isActive = word.classList.contains('active');
-                
-                // 모든 단어 비활성화
                 filterWords.forEach(w => w.classList.remove('active'));
 
                 if (!isActive) {
-                    // 클릭한 단어만 활성화
                     word.classList.add('active');
-                    const selectedTag = word.getAttribute('data-tag');
-                    renderPosts(selectedTag);
+                    renderPosts(word.getAttribute('data-tag'));
                 } else {
-                    // 해제 시 전체보기
                     renderPosts('All');
                 }
             });
         });
 
-        // 글 목록 렌더링 함수
         function renderPosts(filterTag) {
-            container.innerHTML = ''; // 기존 목록 비우기
-            
+            container.innerHTML = ''; 
             const filteredData = filterTag === 'All' 
                 ? postData 
                 : postData.filter(post => post.tag === filterTag);
@@ -900,7 +841,7 @@
             filteredData.forEach(post => {
                 const card = document.createElement('div');
                 card.className = 'post-card';
-                card.onclick = () => openModal(post); // 클릭 시 모달 열기
+                card.onclick = () => openReadModal(post); 
 
                 card.innerHTML = `
                     <span class="post-tag-badge" style="color:${getTagColor(post.tag)}">${post.tag}</span>
@@ -917,73 +858,58 @@
             });
         }
 
-        // 모달 열기
-        function openModal(post) {
+        function openReadModal(post) {
             document.getElementById('m-tag').innerText = post.tag;
             document.getElementById('m-tag').style.color = getTagColor(post.tag);
             document.getElementById('m-title').innerText = post.title;
             document.getElementById('m-info').innerText = `${post.author} | ${post.date}`;
             document.getElementById('m-body').innerText = post.content;
             
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+            document.getElementById('post-modal').classList.add('open');
+            document.body.style.overflow = 'hidden'; 
         }
 
-        // 모달 닫기
-        function closeModal() {
-            modal.classList.remove('open');
+        function openWriteModal() {
+            document.getElementById('write-modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // [수정 완료] 여러 모달을 통합해서 처리하는 함수
+        function closeModal(targetModalId) {
+            if(targetModalId) {
+                document.getElementById(targetModalId).classList.remove('open');
+            } else {
+                // ID가 명시되지 않으면 열려있는 모든 모달 닫기
+                document.querySelectorAll('.modal-overlay').forEach(modal => modal.classList.remove('open'));
+            }
             document.body.style.overflow = 'auto';
         }
 
         // 모달 배경 클릭 시 닫기
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(modal.id);
+            });
         });
 
-        // 태그별 색상 매핑 도우미
         function getTagColor(tag) {
-            const colors = {
-                '함께': '#FF6B6B',   // Coral
-                '꿈': '#FFB703',     // Yellow/Gold
-                '미래': '#00B4C5',   // SNUTI Mint
-                '도전': '#4D96FF'    // Blue
-            };
+            const colors = { '함께': '#FF6B6B', '꿈': '#FFB703', '미래': '#00B4C5', '도전': '#4D96FF' };
             return colors[tag] || '#555';
         }
 
-        // 운영진 소개 토글 기능
         function toggleTeam() {
             const teamArea = document.getElementById('team-area');
             const btn = document.querySelector('.contact-btn.secondary');
-            
-            // 클래스 토글 (열기/닫기)
             teamArea.classList.toggle('open');
-            
-            // 버튼 텍스트 변경 (선택사항)
-            if (teamArea.classList.contains('open')) {
-                btn.innerText = "닫기 X";
-                btn.style.background = "var(--snuti-mint)";
-            } else {
-                btn.innerText = "SNUTI log 친구들";
-                btn.style.background = "var(--snuti-mint)";
-            }
+            btn.innerText = teamArea.classList.contains('open') ? "닫기 X" : "SNUTI log 친구들";
         }
 
-        // About 전문 보기 토글 기능
         function toggleAbout() {
             const aboutArea = document.getElementById('about-full-text');
             const btn = document.querySelector('.btn-read-more');
-            
             aboutArea.classList.toggle('open');
-            
-            if (aboutArea.classList.contains('open')) {
-                btn.innerText = "소개글 접기 ▴";
-            } else {
-                btn.innerText = "소개글 전문 확인하기 ▾";
-            }
+            btn.innerText = aboutArea.classList.contains('open') ? "소개글 접기 ▴" : "소개글 전문 확인하기 ▾";
         }
-
     </script>
 </body>
 </html>
-
