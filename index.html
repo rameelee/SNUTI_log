@@ -693,7 +693,7 @@
                             <option value="도전">도전</option>
                         </select>
                         <input type="text" id="w-title" placeholder="글 제목을 입력하세요" required>
-                        <input type="text" id="w-author" placeholder="작성자 이름 또는 소속" required>
+                        <input type="text" id="w-author" placeholder="작성자 이름/학번/전공" required>
                         <input type="text" id="w-desc" placeholder="리스트에 보여질 한 줄 요약을 적어주세요" required>
                         <textarea id="w-content" placeholder="본문 내용을 자유롭게 작성해주세요." required></textarea>
                         <button type="submit" id="submitBtn">원고 전송하기</button>
@@ -764,7 +764,7 @@
         // ==========================================
         // [중요] 여기에 Apps Script에서 복사한 '웹 앱 URL'을 넣으세요!
         // ==========================================
-        const SCRIPT_URL = "여기에_URL_붙여넣기"; 
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQ5iX4i9iwEAPrmuW-we495sQyTEFzNkG8k5MvvAac6XTRfOQf9kqSOclakqfMjMeN/exec"; 
         
         let postData = []; // 서버에서 받아올 데이터를 담을 변수
 
@@ -890,7 +890,7 @@
 
         // 페이지 로드 시 구글 시트 데이터 가져오기 실행
         window.onload = () => {
-            if(SCRIPT_URL === "여기에_URL_붙여넣기") {
+            if(SCRIPT_URL === "https://script.google.com/macros/s/AKfycbwQ5iX4i9iwEAPrmuW-we495sQyTEFzNkG8k5MvvAac6XTRfOQf9kqSOclakqfMjMeN/exec") {
                 container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: red;">JavaScript 코드 하단에 구글 앱스 스크립트 웹 앱 URL을 먼저 입력해주세요!</p>';
             } else {
                 fetchPosts();
