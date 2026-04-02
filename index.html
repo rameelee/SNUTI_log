@@ -770,20 +770,7 @@
 
         const container = document.getElementById('post-container');
         const filterWords = document.querySelectorAll('.filter-word');
-
-        // 1. 구글 시트에서 데이터 불러오기 (GET)
-        async function fetchPosts() {
-            try {
-                // 테스트 시 CORS 에러 방지를 위해 간단히 fetch
-                const response = await fetch(SCRIPT_URL);
-                postData = await response.json();
-                renderPosts('All');
-            } catch (error) {
-                console.error("데이터 로딩 실패:", error);
-                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: red;">데이터를 불러오는 데 실패했습니다. URL을 확인해주세요.</p>';
-            }
-        }
-
+        
         // 2. 구글 시트로 데이터 보내기 (POST)
         async function submitPost(event) {
             event.preventDefault(); // 폼 기본 새로고침 방지
@@ -819,60 +806,6 @@
             }
         }
 
-        // ==========================================
-        // UI 로직 (정렬, 모달 등)
-        // ==========================================
-
-        filterWords.forEach(word => {
-            word.addEventListener('click', () => {
-                const isActive = word.classList.contains('active');
-                filterWords.forEach(w => w.classList.remove('active'));
-                if (!isActive) {
-                    word.classList.add('active');
-                    renderPosts(word.getAttribute('data-tag'));
-                } else {
-                    renderPosts('All');
-                }
-            });
-        });
-
-        function renderPosts(filterTag) {
-            container.innerHTML = ''; 
-            const filteredData = filterTag === 'All' ? postData : postData.filter(post => post.tag === filterTag);
-
-            if (filteredData.length === 0) {
-                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">해당 카테고리에 아직 글이 없거나 불러오는 중입니다.</p>';
-                return;
-            }
-
-            filteredData.forEach(post => {
-                const card = document.createElement('div');
-                card.className = 'post-card';
-                card.onclick = () => openReadModal(post); 
-                card.innerHTML = `
-                    <span class="post-tag-badge" style="color:${getTagColor(post.tag)}">${post.tag}</span>
-                    <div class="post-content">
-                        <h3 class="post-title">${post.title}</h3>
-                        <p class="post-desc">${post.desc}</p>
-                        <div class="post-meta">
-                            <span>${post.author}</span>
-                            <span>${post.date.substring(0, 10)}</span> </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function openReadModal(post) {
-            document.getElementById('m-tag').innerText = post.tag;
-            document.getElementById('m-tag').style.color = getTagColor(post.tag);
-            document.getElementById('m-title').innerText = post.title;
-            document.getElementById('m-info').innerText = `${post.author} | ${post.date.substring(0, 10)}`;
-            document.getElementById('m-body').innerText = post.content;
-            document.getElementById('post-modal').classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-
         function openWriteModal() {
             document.getElementById('write-modal').classList.add('open');
             document.body.style.overflow = 'hidden';
@@ -882,20 +815,6 @@
             document.getElementById(modalId).classList.remove('open');
             document.body.style.overflow = 'auto';
         }
-
-        function getTagColor(tag) {
-            const colors = { '함께': '#FF6B6B', '꿈': '#FFB703', '미래': '#00B4C5', '도전': '#4D96FF' };
-            return colors[tag] || '#555';
-        }
-
-        // 페이지 로드 시 구글 시트 데이터 가져오기 실행
-        window.onload = () => {
-            if(SCRIPT_URL === "https://script.google.com/macros/s/AKfycbwQ5iX4i9iwEAPrmuW-we495sQyTEFzNkG8k5MvvAac6XTRfOQf9kqSOclakqfMjMeN/exec") {
-                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: red;">JavaScript 코드 하단에 구글 앱스 스크립트 웹 앱 URL을 먼저 입력해주세요!</p>';
-            } else {
-                fetchPosts();
-            }
-        };
 
         // ==========================================
         // [1. 데이터베이스] 여기에 글을 추가하면 자동으로 반영됩니다.
