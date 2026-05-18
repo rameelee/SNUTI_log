@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css" /> 
 </head>
 <body>
+
     <header>
         <a href="index.html" class="logo">
             SNUTI <span class="log">log</span>
@@ -66,8 +67,7 @@
                     첨단융합학부의 교수진과 학생들은 열정적으로 소통하며 시너지를 내고 있습니다. 
                     우리는 이 소중한 연결이 휘발되지 않고, 서로에게 영감이 되어 '실천'으로 이어지길 바랍니다.
                 </p>
-                
-                <button class="btn-read-more" onclick="toggleAbout()">소개글 전문 확인하기 ▾</button>
+                <a href="about.html" class="btn-read-more" style="display: inline-block; margin-top: 20px;">소개글 전문 보러가기 ▾</a>
             </div>
 
             <div class="quote-box">
@@ -79,58 +79,9 @@
                 <strong>- SNUTI log 운영진 드림</strong>
             </div>
         </div>
-
-        <div id="about-full-text" class="about-hidden-area">
-            <div class="full-text-content">
-                <h4>왜 SNUTI Log인가요?</h4>
-                <p>
-                    첨단융합학부에는 SNUTI.ExP( )를 비롯한 여러 프로그램과 활동의 기회들이 주어집니다. 
-                    그리고 수많은 학생들과 교수진의 노력으로 친구들과 함께 꾸준히 성장할 수 있게 됩니다.
-                    SNUTI log는 이러한 환경 속에서 구성원 간의 소통과 연결을 강화시켜 시너지를 내며 성장하는 데에 도움이 되고자 만들어졌습니다.
-                </p>
-                <br>
-                <h4>기록의 힘을 믿습니다</h4>
-                <p>
-                    그동안 학교생활을 돌이켜보면 교수님들과 학생들이 교류하려 하시는 노력들이 정말 많았습니다. 
-                    그러나 한편으로는 서로가 서로에게 어떤 영향을 주고 어떤 것들을 함께 이루어갔는지를 공유하기가 힘든 것에 아쉬운 마음이 항상 있었습니다.
-                </p>
-                <p>
-                    그렇기에 SNUTI log를 통해 서로의 이야기를 들으며 영감을 받고 실천으로 옮겨 
-                    각자만의 새로운 이야기를 만들어갈 수 있다면 뜻깊은 성장을 이룰 수 있을 것이라 생각합니다.
-                </p>
-                <br>
-                <p>
-                    부담 없이 주변에 말하지 못했던 여러분의 빛나는 이야기들을 함께 만드는 SNUTI log에 기록하고 나눠주세요. ☺️
-                </p>
-            </div>
-        </div>
     </section>
 
-    <section id="method" style="background-color: #fff;">
-        <div class="section-header">
-            <h2>How to Log</h2>
-            <p>여러분의 이야기가 뉴스와 역사가 되는 과정입니다.</p>
-        </div>
-        <div class="steps-grid">
-            <div class="step-card">
-                <div class="step-num">1</div>
-                <h3>기록 작성</h3>
-                <p>활동 사진, 배경, 느낀 점 등을 자유롭게 작성해주세요. 작성한 기록을 공유하고 싶다면 Contact의 Email로 보내주세요.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-num">2</div>
-                <h3>편집 및 발행</h3>
-                <p>첨단융합학부 학생 기자단 TITLE과 SNUTI log 팀이 여러분의 초고를 바탕으로 멋진 소식지로 다듬습니다.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-num">3</div>
-                <h3>공유 및 아카이빙</h3>
-                <p>완성된 이야기는 뉴스레터로 공유되고, 이곳 웹사이트와 향후 발간될 책자로 남아 후배들의 길잡이가 됩니다.</p>
-            </div>
-        </div>
-    </section>
-
-<section id="archives">
+    <section id="archives">
         <div class="section-header">
             <h2>Archive Logs</h2>
             <p>키워드를 클릭하여 관련된 이야기를 만나보세요.</p>
@@ -145,8 +96,7 @@
             </h2>
         </div>
 
-        <div class="post-list-container" id="post-container">
-            </div>
+        <div class="post-list-container" id="post-container"></div>
     </section>
 
     <div class="modal-overlay" id="post-modal">
@@ -161,81 +111,6 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="write-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="btn-close" onclick="closeModal('write-modal')">&times;</button>
-                <h2 class="modal-title">새로운 이야기 투고하기</h2>
-                <p class="modal-info">작성하신 글은 운영자의 구글 시트로 안전하게 전송됩니다.</p>
-            </div>
-            <div class="modal-body">
-                <form class="write-form" id="submitForm" onsubmit="submitPost(event)">
-                    <select id="w-tag" required>
-                        <option value="" disabled selected>태그 선택 (함께, 꿈, 미래, 도전)</option>
-                        <option value="함께">함께</option>
-                        <option value="꿈">꿈</option>
-                        <option value="미래">미래</option>
-                        <option value="도전">도전</option>
-                    </select>
-                    <input type="text" id="w-title" placeholder="글 제목을 입력하세요" required>
-                    <input type="text" id="w-author" placeholder="작성자 이름/학번/전공" required>
-                    <input type="text" id="w-desc" placeholder="리스트에 보여질 한 줄 요약을 적어주세요" required>
-                    <textarea id="w-content" placeholder="본문 내용을 자유롭게 작성해주세요." required></textarea>
-                    <button type="submit" id="submitBtn">원고 전송하기</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <section id="contact">
-        <div class="contact-box">
-            <h2>함께 이야기를 쌓아가요</h2>
-            <p>
-                어떤 이야기를 적어야 할지 고민되시나요?<br>
-                혹은 이 기록의 여정에 운영진으로 함께하고 싶으신가요?<br>
-                언제든 편하게 연락주세요.
-            </p>
-            
-            <div class="contact-actions">
-                <a href="mailto:rameelee@snu.ac.kr" class="contact-btn primary">문의하기 (Email)</a>
-            <button class="contact-btn secondary" onclick="toggleTeam()">SNUTI log 친구들</button>
-            </div>
-
-            <div id="team-area" class="team-hidden-area">
-                <div class="team-scroll-wrapper">
-                    <div class="member-card">
-                        <div class="member-icon">🌱</div>
-                        <h3>전원준</h3>
-                        <span class="member-role">Planning Lead</span>
-                        <p class="member-desc">"한마디"</p>
-                        <a href="mailto:juneie24@snu.ac.kr" class="member-email">juneie24@snu.ac.kr</a>
-                    </div>
-
-                    <div class="member-card">
-                        <div class="member-icon">✍️</div>
-                        <h3>이희서</h3>
-                        <span class="member-role">Editor</span>
-                        <p class="member-desc">"여러분의 빛나는 경험을 뉴스레터로 담아냅니다."</p>
-                        <a href="mailto:rameelee@snu.ac.kr" class="member-email">rameelee@snu.ac.kr</a>
-                    </div>
-
-                    <div class="member-card">
-                        <div class="member-icon">📬</div>
-                        <h3>YOU</h3>
-                        <span class="member-role">writer</span>
-                        <p class="member-desc">"SNUTI log는 여러분의 이야기로 완성됩니다!"</p>
-                        <a href="mailto:rameelee@snu.ac.kr" class="member-email">글 보내기</a>
-                    </div>
-                </div>
-            </div>
-
-            <br><br>
-            <p style="font-size: 0.9rem; opacity: 0.7;">
-                * 작성된 글의 주인공에게 연락하고 싶다면, 해당 글의 하단 연락처를 참고해주세요.
-            </p>
-        </div>
-    </section>
-
     <footer>
         <strong>SNUTI log</strong>
         <p>서울대학교 첨단융합학부 학생 활동 아카이빙 커뮤니티</p>
@@ -243,7 +118,11 @@
     </footer>
 
     <script>
-        // 데이터베이스 (정적 데이터)
+        // DOM 요소 선택 변수 복구
+        const container = document.getElementById('post-container');
+        const filterWords = document.querySelectorAll('.filter-word');
+        
+        // 정적 데이터 세트
         const postData = [
             {
                 id: 1, tag: "도전", title: "부산 BEXCO 파이널 피칭 도전기", author: "25학번 창업팀", date: "2026-03-01",
@@ -260,17 +139,15 @@
                 desc: "24-25 하계 실리콘 밸리 연수 경험을 공유하며 형성된 선후배 커뮤니티 이야기.",
                 content: `실리콘밸리라는 공유된 경험을 바탕으로 24학번, 25학번, 그리고 타학과 선배들이 모였습니다.
                 
-                현지에서 느꼈던 혁신의 문화를 한국에 돌아와서도 이어가기 위해 매주 온라인 영감 공유회를 진행하고 있습니다. 박세원, 정윤지, 김은기, 이재규 멘토님과 함께하는 세션은 우리에게 늘 새로운 자극이 됩니다.
-                단순한 친목을 넘어 글로벌 리더로 성장하기 위한 발판이 되고 있습니다.`
+현지에서 느꼈던 혁신의 문화를 한국에 돌아와서도 이어가기 위해 매주 온라인 영감 공유회를 진행하고 있습니다. 박세원, 정윤지, 김은기, 이재규 멘토님과 함께하는 세션은 우리에게 늘 새로운 자극이 됩니다.
+단순한 친목을 넘어 글로벌 리더로 성장하기 위한 발판이 되고 있습니다.`
             }
         ];
-        // ----------------------------------------------------
-        // [2. UI 제어 기능 (렌더링, 정렬, 모달)]
-        // ----------------------------------------------------
-        
-        // 초기 화면 렌더링
+
+        // 초기 화면 렌더링 실행
         renderPosts('All');
 
+        // 슬로건 필터 이벤트 리스너
         filterWords.forEach(word => {
             word.addEventListener('click', () => {
                 const isActive = word.classList.contains('active');
@@ -285,6 +162,7 @@
             });
         });
 
+        // 게시글 렌더링 함수
         function renderPosts(filterTag) {
             container.innerHTML = ''; 
             const filteredData = filterTag === 'All' 
@@ -316,6 +194,7 @@
             });
         }
 
+        // 모달 제어 함수
         function openReadModal(post) {
             document.getElementById('m-tag').innerText = post.tag;
             document.getElementById('m-tag').style.color = getTagColor(post.tag);
@@ -327,23 +206,15 @@
             document.body.style.overflow = 'hidden'; 
         }
 
-        function openWriteModal() {
-            document.getElementById('write-modal').classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // [수정 완료] 여러 모달을 통합해서 처리하는 함수
         function closeModal(targetModalId) {
             if(targetModalId) {
                 document.getElementById(targetModalId).classList.remove('open');
             } else {
-                // ID가 명시되지 않으면 열려있는 모든 모달 닫기
                 document.querySelectorAll('.modal-overlay').forEach(modal => modal.classList.remove('open'));
             }
             document.body.style.overflow = 'auto';
         }
 
-        // 모달 배경 클릭 시 닫기
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) closeModal(modal.id);
@@ -353,20 +224,6 @@
         function getTagColor(tag) {
             const colors = { '함께': '#FF6B6B', '꿈': '#FFB703', '미래': '#00B4C5', '도전': '#4D96FF' };
             return colors[tag] || '#555';
-        }
-
-        function toggleTeam() {
-            const teamArea = document.getElementById('team-area');
-            const btn = document.querySelector('.contact-btn.secondary');
-            teamArea.classList.toggle('open');
-            btn.innerText = teamArea.classList.contains('open') ? "닫기 X" : "SNUTI log 친구들";
-        }
-
-        function toggleAbout() {
-            const aboutArea = document.getElementById('about-full-text');
-            const btn = document.querySelector('.btn-read-more');
-            aboutArea.classList.toggle('open');
-            btn.innerText = aboutArea.classList.contains('open') ? "소개글 접기 ▴" : "소개글 전문 확인하기 ▾";
         }
     </script>
 </body>
