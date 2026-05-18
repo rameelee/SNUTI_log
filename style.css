@@ -1,5 +1,4 @@
-<style>
-        /* [1. 변수 및 기본 설정] */
+ /* [1. 변수 및 기본 설정] */
         :root {
             --exp-color: #FFB703; /* 지수함수: 열정, 기회 (노랑) */
             --log-color: #00B4C5; /* 로그함수: 기록, 성찰 (첨융색) */
@@ -490,5 +489,4 @@
         .write-form button:hover { background: var(--snuti-mint); }
 
         .loading-spinner { text-align: center; padding: 50px; font-size: 1.2rem; color: var(--log-color); font-weight: bold; grid-column: 1 / -1;}
-        
-    </style>
+
