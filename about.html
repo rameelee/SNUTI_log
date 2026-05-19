@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <link rel="icon" type="image/png" href="snu.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNUTI log : About</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="style.css" /> 
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            SNUTI <span class="log">log</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="about.html" style="color: var(--log-color);">About</a></li>
+                <li><a href="method.html">How to Log</a></li>
+                <li><a href="archives.html">Archives</a></li>
+                <li><a href="write.html">Log Now</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about">
+        <div class="section-header">
+            <h2>About SNUTI Log</h2>
+            <p>우리의 일상을 기록하고, 서로의 영감이 됩니다.</p>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>공식적인 이야기 너머,<br>진짜 우리들의 성장기</h3>
+                <p>
+                    SNUTI log는 서울대학교 첨단융합학부 학생들이 함께 만들어가는 꿈과 도전의 여정을 기록하는 공간입니다. 
+                    화려한 결과물뿐만 아니라, 평범한 학교 생활과 일상 속에서 일어나는 작은 성장의 순간들을 포착합니다.
+                </p>
+                <p>
+                    첨단융합학부의 교수진과 학생들은 열정적으로 소통하며 시너지를 내고 있습니다. 
+                    우리는 이 소중한 연결이 휘발되지 않고, 서로에게 영감이 되어 '실천'으로 이어지길 바랍니다.
+                </p>
+                
+                <button class="btn-read-more" onclick="toggleAbout()">소개글 전문 확인하기 ▾</button>
+            </div>
+
+            <div class="quote-box">
+                <p>
+                    "SNUTI log가 자신의 이야기를 다른 친구들과 나누고 기록하는 첨단융합학부의 일기장이 되길 바랍니다. 
+                    각각의 이야기들은 서로에게 특별한 배움과 새로운 영감을 나눠줄 것입니다."
+                </p>
+                <br>
+                <strong>- SNUTI log 운영진 드림</strong>
+            </div>
+        </div>
+
+        <div id="about-full-text" class="about-hidden-area">
+            <div class="full-text-content">
+                <h4>왜 SNUTI Log인가요?</h4>
+                <p>
+                    첨단융합학부에는 SNUTI.ExP( )를 비롯한 여러 프로그램과 활동의 기회들이 주어집니다. 
+                    그리고 수많은 학생들과 교수진의 노력으로 친구들과 함께 꾸준히 성장할 수 있게 됩니다.
+                    SNUTI log는 이러한 환경 속에서 구성원 간의 소통과 연결을 강화시켜 시너지를 내며 성장하는 데에 도움이 되고자 만들어졌습니다.
+                </p>
+                <br>
+                <h4>기록의 힘을 믿습니다</h4>
+                <p>
+                    그동안 학교생활을 돌이켜보면 교수님들과 학생들이 교류하려 하시는 노력들이 정말 많았습니다. 
+                    그러나 한편으로는 서로가 서로에게 어떤 영향을 주고 어떤 것들을 함께 이루어갔는지를 공유하기가 힘든 것에 아쉬운 마음이 항상 있었습니다.
+                </p>
+                <p>
+                    그렇기에 SNUTI log를 통해 서로의 이야기를 들으며 영감을 받고 실천으로 옮겨 
+                    각자만의 새로운 이야기를 만들어갈 수 있다면 뜻깊은 성장을 이룰 수 있을 것이라 생각합니다.
+                </p>
+                <br>
+                <p>
+                    부담 없이 주변에 말하지 못했던 여러분의 빛나는 이야기들을 함께 만드는 SNUTI log에 기록하고 나눠주세요. ☺️
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <strong>SNUTI log</strong>
+        <p>서울대학교 첨단융합학부 학생 활동 아카이빙 커뮤니티</p>
+        <p>&copy; 2026 SNUTI log. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleAbout() {
+            const aboutArea = document.getElementById('about-full-text');
+            const btn = document.querySelector('.btn-read-more');
+            aboutArea.classList.toggle('open');
+            btn.innerText = aboutArea.classList.contains('open') ? "소개글 접기 ▴" : "소개글 전문 확인하기 ▾";
+        }
+    </script>
+</body>
+</html>
