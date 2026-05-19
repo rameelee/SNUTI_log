@@ -142,7 +142,6 @@
         /* [5. About Section] */
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 좌우 1:1 비율 병렬 배치 */
             gap: 60px;
             align-items: center;
             max-width: 1200px;
