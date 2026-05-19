@@ -153,52 +153,6 @@
         .about-text h3 { font-size: 2rem; margin-bottom: 20px; line-height: 1.4; color: var(--text-dark); }
         .about-text p { margin-bottom: 15px; color: var(--text-gray); font-size: 1.05rem; line-height: 1.7; word-break: keep-all; }
 
-        /* 다이어그램 래퍼 (깔끔하게 SVG만 중앙에 오도록) */
-        .diagram-only-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-
-        .loop-svg {
-            width: 100%;
-            max-width: 420px;
-            height: auto;
-            overflow: visible;
-        }
-
-        .diag-text { font-weight: 800; font-size: 26px; }
-        .diag-label { font-weight: 600; font-size: 14px; fill: #666; }
-
-        .flow-arrow {
-            fill: none;
-            stroke-width: 8;
-            stroke-linecap: round;
-            stroke-dasharray: 600;
-            stroke-dashoffset: 600;
-            animation: flow 3s ease-in-out infinite;
-        }
-
-        .step-node { transition: 0.3s; cursor: pointer; }
-        .step-node:hover { transform: scale(1.05); }
-
-        .step-insp { fill: var(--exp-color); filter: drop-shadow(0 0 10px rgba(255, 183, 3, 0.5)); }
-        .step-chal { fill: var(--log-color); filter: drop-shadow(0 0 10px rgba(0, 180, 197, 0.5)); }
-        .step-shar { fill: var(--snuti-mint); filter: drop-shadow(0 0 10px rgba(0, 180, 157, 0.5)); }
-
-        @keyframes flow {
-            0% { stroke-dashoffset: 600; }
-            40%, 100% { stroke-dashoffset: 0; }
-        }
-
-        /* 모바일 화면에서는 위아래로 떨어지도록 반응형 처리 */
-        @media (max-width: 900px) {
-            .about-content { grid-template-columns: 1fr; gap: 50px; text-align: center; }
-            .about-text { text-align: center; }
-            .loop-svg { max-width: 350px; }
-        }
-
         /* [About 숨겨진 영역 애니메이션] */
         .about-hidden-area {
             max-height: 0;
