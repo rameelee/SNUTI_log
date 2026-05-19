@@ -8,52 +8,26 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
     <link rel="stylesheet" href="style.css" /> 
     <style>
-        /* Archives 페이지 전용 확장 스타일 */
-        .search-filter-wrapper {
-            background: #fff;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            margin-bottom: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .search-bar-container {
-            width: 100%;
-            max-width: 600px;
-            position: relative;
-        }
-
-        .search-bar-container input {
-            width: 100%;
-            padding: 15px 20px;
-            border: 2px solid #edf2f7;
-            border-radius: 50px;
-            font-size: 1rem;
-            transition: 0.3s;
-            outline: none;
-        }
-
-        .search-bar-container input:focus {
-            border-color: var(--log-color);
-            box-shadow: 0 0 10px rgba(0, 180, 197, 0.1);
-        }
+        .search-filter-wrapper { background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 40px; display: flex; flex-direction: column; gap: 20px; align-items: center; }
+        
+        /* 검색창 & 연도 필터 레이아웃 */
+        .search-controls { display: flex; gap: 15px; width: 100%; max-width: 700px; }
+        .search-controls input { flex: 2; padding: 15px 20px; border: 2px solid #edf2f7; border-radius: 50px; font-size: 1rem; transition: 0.3s; outline: none; }
+        .search-controls input:focus { border-color: var(--log-color); box-shadow: 0 0 10px rgba(0, 180, 197, 0.1); }
+        .search-controls select { flex: 1; padding: 0 20px; border: 2px solid #edf2f7; border-radius: 50px; font-size: 1rem; outline: none; cursor: pointer; background: white; font-weight: bold; color: var(--snuti-blue); transition: 0.3s;}
+        .search-controls select:focus { border-color: var(--log-color); }
 
         @media (max-width: 768px) {
             .search-filter-wrapper { padding: 20px; }
+            .search-controls { flex-direction: column; gap: 10px; }
+            .search-controls select { padding: 15px 20px; }
             .slogan-text { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
-
     <header>
-        <a href="index.html" class="logo">
-            SNUTI <span class="log">log</span>
-        </a>
+        <a href="index.html" class="logo">SNUTI <span class="log">log</span></a>
         <nav>
             <ul>
                 <li><a href="about.html">About</a></li>
@@ -72,7 +46,13 @@
         </div>
         
         <div class="search-filter-wrapper">
-            <div class="search-bar-container">
+            <div class="search-controls">
+                <select id="year-filter" onchange="handleSearch()">
+                    <option value="All">전체 연도</option>
+                    <option value="2026">2026년</option>
+                    <option value="2025">2025년</option>
+                    <option value="2024">2024년</option>
+                </select>
                 <input type="text" id="search-input" placeholder="제목 또는 작성자를 입력하여 검색하세요..." oninput="handleSearch()">
             </div>
             
@@ -116,40 +96,36 @@
         const container = document.getElementById('post-container');
         const filterWords = document.querySelectorAll('.filter-word');
         const searchInput = document.getElementById('search-input');
+        const yearFilter = document.getElementById('year-filter');
         
         let currentFilterTag = 'All';
 
-        // 데이터베이스 (정적 데이터)
+        // 데이터베이스 (정적 데이터 - contact 항목 추가됨)
         const postData = [
             {
-                id: 1, tag: "도전", title: "부산 BEXCO 파이널 피칭 도전기", author: "25학번 창업팀", date: "2026-03-01",
+                id: 1, tag: "도전", title: "부산 BEXCO 파이널 피칭 도전기", author: "25학번 창업팀", contact: "startup25@snu.ac.kr", date: "2026-03-01",
                 desc: "첨융 25학번 창업팀이 경진대회 우수 성적으로 최종 무대에 서기까지의 치열했던 준비 과정.",
                 content: `이곳에 본문 내용을 입력하세요.`
             },
             {
-                id: 2, tag: "함께", title: "관악구 어르신 대상 AI 교육 봉사", author: "socieTI", date: "2026-02-15",
+                id: 2, tag: "함께", title: "관악구 어르신 대상 AI 교육 봉사", author: "socieTI", contact: "instagram @societi_snu", date: "2025-11-15",
                 desc: "KTI 챌린지의 영감이 사회공헌으로. 어르신들과 함께한 따뜻한 디지털 교육 현장.",
                 content: `이곳에 본문 내용을 입력하세요.`
             },
             {
-                id: 3, tag: "꿈", title: "실리콘 밸리에서 관악까지: SNU Connect Community", author: "SNU Connect", date: "2026-01-20",
+                id: 3, tag: "꿈", title: "실리콘 밸리에서 관악까지: SNU Connect Community", author: "SNU Connect", contact: "linkedin.com/in/snuconnect", date: "2026-01-20",
                 desc: "24-25 하계 실리콘 밸리 연수 경험을 공유하며 형성된 선후배 커뮤니티 이야기.",
-                content: `실리콘밸리라는 공유된 경험을 바탕으로 24학번, 25학번, 그리고 타학과 선배들이 모였습니다.
-                
-현지에서 느꼈던 혁신의 문화를 한국에 돌아와서도 이어가기 위해 매주 온라인 영감 공유회를 진행하고 있습니다. 박세원, 정윤지, 김은기, 이재규 멘토님과 함께하는 세션은 우리에게 늘 새로운 자극이 됩니다.
-단순한 친목을 넘어 글로벌 리더로 성장하기 위한 발판이 되고 있습니다.`
+                content: `실리콘밸리라는 공유된 경험을 바탕으로 24학번, 25학번, 그리고 타학과 선배들이 모였습니다.\n\n현지에서 느꼈던 혁신의 문화를 한국에 돌아와서도 이어가기 위해 매주 온라인 영감 공유회를 진행하고 있습니다.`
             }
         ];
 
-        // 초기 실행
         renderPosts();
 
-        // 키워드 필터링 이벤트 매핑
+        // 키워드 필터링 이벤트 (슬로건)
         filterWords.forEach(word => {
             word.addEventListener('click', () => {
                 const isActive = word.classList.contains('active');
                 filterWords.forEach(w => w.classList.remove('active'));
-
                 if (!isActive) {
                     word.classList.add('active');
                     currentFilterTag = word.getAttribute('data-tag');
@@ -160,17 +136,23 @@
             });
         });
 
-        // 통합 검색 및 렌더링 함수
+        // 다중 조건 필터링 렌더링 함수
         function renderPosts() {
             container.innerHTML = ''; 
             const keyword = searchInput.value.toLowerCase().trim();
+            const selectedYear = yearFilter.value;
 
-            // 1차 필터링: 태그 기준
+            // 1. 태그 필터링
             let filteredData = currentFilterTag === 'All' 
                 ? postData 
                 : postData.filter(post => post.tag === currentFilterTag);
 
-            // 2차 필터링: 검색어 기준 (제목 또는 작성자 검색)
+            // 2. 연도 필터링
+            if (selectedYear !== 'All') {
+                filteredData = filteredData.filter(post => post.date.startsWith(selectedYear));
+            }
+
+            // 3. 검색어 필터링
             if (keyword !== '') {
                 filteredData = filteredData.filter(post => 
                     post.title.toLowerCase().includes(keyword) || 
@@ -187,7 +169,6 @@
                 const card = document.createElement('div');
                 card.className = 'post-card';
                 card.onclick = () => openReadModal(post); 
-
                 card.innerHTML = `
                     <span class="post-tag-badge" style="color:${getTagColor(post.tag)}">${post.tag}</span>
                     <div class="post-content">
@@ -207,12 +188,16 @@
             renderPosts();
         }
 
-        // 모달 윈도우 제어 로직
+        // 모달 윈도우 제어 (연락처 표시 추가)
         function openReadModal(post) {
             document.getElementById('m-tag').innerText = post.tag;
             document.getElementById('m-tag').style.color = getTagColor(post.tag);
             document.getElementById('m-title').innerText = post.title;
-            document.getElementById('m-info').innerText = `${post.author} | ${post.date}`;
+            // 작성자 정보 및 날짜 아래에 연락처 정보를 추가로 렌더링
+            document.getElementById('m-info').innerHTML = `
+                ${post.author} | ${post.date} 
+                <br><span style="color: var(--log-color); font-weight: bold; margin-top: 5px; display: inline-block;">✉️ Contact: ${post.contact || '기재되지 않음'}</span>
+            `;
             document.getElementById('m-body').innerText = post.content;
             
             document.getElementById('post-modal').classList.add('open');
