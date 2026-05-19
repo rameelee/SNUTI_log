@@ -495,3 +495,8 @@
 
         .loading-spinner { text-align: center; padding: 50px; font-size: 1.2rem; color: var(--log-color); font-weight: bold; grid-column: 1 / -1;}
 
+        footer a:hover {
+             color: #fff !important;
+             text-decoration: none;
+         }
+
