@@ -396,24 +396,29 @@
 
         /* [토글 영역 애니메이션] */
         .team-hidden-area {
-            max-height: 0; opacity: 0; overflow: hidden;
+            max-height: 0; 
+            opacity: 0; 
+            overflow: hidden;
             transition: all 0.5s ease-in-out;
         }
+        /* 인원이 많아져도 잘리지 않도록 최대 높이 임계값 확장 */
         .team-hidden-area.open {
-            max-height: 500px; opacity: 1; margin-top: 30px;
+            max-height: 2000px; 
+            opacity: 1; 
+            margin-top: 30px;
         }
-
-        /* [가로 스크롤 카드 레이아웃] */
-        .team-scroll-wrapper {
-            display: flex; gap: 20px;
-            overflow-x: auto; /* 가로 스크롤 허용 */
+        
+        /* [변경본: 반응형 그리드 레이아웃] */
+        .team-grid-wrapper {
+            display: grid;
+            /* 화면 너비에 따라 260px 이상의 카드가 자동으로 행을 바꾸며 채워짐 */
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
             padding: 10px;
-            justify-content: center; /* PC에서는 중앙 정렬 */
-            -webkit-overflow-scrolling: touch; /* 모바일 부드러운 스크롤 */
-            scrollbar-width: none; /* 스크롤바 숨김 (Firefox) */
+            max-width: 1200px;
+            margin: 0 auto;
+            justify-items: center; /* 남는 공간 발생 시 격자 내부에서 카드 중앙 정렬 */
         }
-        .team-scroll-wrapper::-webkit-scrollbar { display: none; } /* 스크롤바 숨김 (Chrome/Safari) */
-
         /* [개별 멤버 카드] */
         .member-card {
             background: white; color: var(--text-dark);
