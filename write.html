@@ -8,40 +8,18 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
     <link rel="stylesheet" href="style.css" />
     <style>
-        /* 작성 페이지 전용 추가 스타일 */
-        .write-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            padding: 80px 10%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .guide-section {
-            background: #fff;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-top: 5px solid var(--snuti-mint);
-        }
+        .write-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; padding: 80px 10%; max-width: 1400px; margin: 0 auto; }
+        .guide-section { background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 5px solid var(--snuti-mint); }
         .guide-section h2 { color: var(--snuti-blue); margin-bottom: 20px; }
         .guide-item { margin-bottom: 25px; }
         .guide-item h4 { color: var(--text-dark); margin-bottom: 8px; font-size: 1.1rem;}
         .guide-item p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.5; }
         .guide-highlight { background: var(--snuti-mint-light); padding: 15px; border-radius: 10px; margin-top: 20px;}
         
-        .form-section {
-            background: #fff;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
+        .form-section { background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .form-section h2 { margin-bottom: 10px; }
         .form-section p { color: var(--text-gray); margin-bottom: 30px; font-size: 0.95rem; }
-
-        @media (max-width: 900px) {
-            .write-container { grid-template-columns: 1fr; padding: 40px 5%; }
-        }
+        @media (max-width: 900px) { .write-container { grid-template-columns: 1fr; padding: 40px 5%; } }
     </style>
 </head>
 <body>
@@ -61,30 +39,16 @@
     <div class="write-container">
         <div class="guide-section">
             <h2>SNUTI log 작성 가이드</h2>
-
-            <div style="margin-top: 20px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 15px;">
-                <a href="복사한_구글_드라이브_공유_링크" target="_blank" rel="noopener noreferrer" style="color: var(--snuti-blue); font-weight: 700; text-decoration: underline; display: inline-flex; align-items: center; gap: 5px;">
-                    📄 세부 작성 가이드라인 문서 확인하기 
+            <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                <a href="여기에_구글드라이브_링크삽입" target="_blank" rel="noopener noreferrer" style="color: var(--snuti-blue); font-weight: 700; text-decoration: underline; display: inline-flex; align-items: center; gap: 5px;">
+                    📄 세부 작성 가이드라인 문서 확인하기
                 </a>
+            </div>
             <p style="color: var(--text-gray); margin-bottom: 30px;">형식은 자유롭지만, 아래 요소를 포함하면 더 멋진 기록이 됩니다.</p>
-            
-            <div class="guide-item">
-                <h4>1. 활동 배경</h4>
-                <p>왜 이 프로젝트나 활동을 시작하게 되었나요?</p>
-            </div>
-            <div class="guide-item">
-                <h4>2. 진행 과정</h4>
-                <p>어떤 과정을 거쳐 아이디어를 발전시키고 실행했나요?</p>
-            </div>
-            <div class="guide-item">
-                <h4>3. 성과 및 결과</h4>
-                <p>활동을 통해 얻은 구체적인 결과물은 무엇인가요?</p>
-            </div>
-            <div class="guide-item">
-                <h4>4. 느낀 점</h4>
-                <p>성공뿐만 아니라, 실패했던 경험이나 새롭게 배운 점은 무엇이었나요?</p>
-            </div>
-
+            <div class="guide-item"><h4>1. 활동 배경</h4><p>왜 이 프로젝트나 활동을 시작하게 되었나요?</p></div>
+            <div class="guide-item"><h4>2. 진행 과정</h4><p>어떤 과정을 거쳐 아이디어를 발전시키고 실행했나요?</p></div>
+            <div class="guide-item"><h4>3. 성과 및 결과</h4><p>활동을 통해 얻은 구체적인 결과물은 무엇인가요?</p></div>
+            <div class="guide-item"><h4>4. 느낀 점</h4><p>성공뿐만 아니라, 실패했던 경험이나 새롭게 배운 점은 무엇이었나요?</p></div>
             <div class="guide-highlight">
                 <p><strong>✍️ 권장 분량:</strong> 공백 포함 500자 ~ 1,500자 내외</p>
                 <p style="margin-top: 10px;"><strong>📸 사진 규격:</strong> 1~3장 내외 (JPG, PNG)</p>
@@ -106,6 +70,8 @@
                 </select>
                 <input type="text" id="w-title" placeholder="글 제목을 입력하세요" required>
                 <input type="text" id="w-author" placeholder="작성자 (예: 홍길동 / 25학번 / 전공)" required>
+                <input type="text" id="w-contact" placeholder="연락처 (이메일, LinkedIn, 또는 인스타그램)" required>
+                
                 <input type="text" id="w-desc" placeholder="리스트에 보여질 한 줄 요약을 적어주세요" required>
                 <textarea id="w-content" placeholder="배경, 과정, 결과, 느낀 점을 자유롭게 작성해주세요." required></textarea>
                 
@@ -138,6 +104,7 @@
                 tag: document.getElementById('w-tag').value,
                 title: document.getElementById('w-title').value,
                 author: document.getElementById('w-author').value,
+                contact: document.getElementById('w-contact').value, /* 새로 추가된 연락처 데이터 전송 */
                 desc: document.getElementById('w-desc').value,
                 content: document.getElementById('w-content').value
             };
@@ -150,9 +117,9 @@
                     body: JSON.stringify(payload)
                 });
                 
-                alert("성공적으로 투고되었습니다! 멋진 기록 감사합니다.");
+                alert("성공적으로 투고되었습니다!");
                 document.getElementById('submitForm').reset();
-                window.location.href = "archives.html"; // 작성 완료 후 아카이브 페이지로 이동
+                window.location.href = "archives.html"; 
                 
             } catch (error) {
                 alert("전송에 실패했습니다. 네트워크를 확인해주세요.");
