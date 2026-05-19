@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <link rel="icon" type="image/png" href="snu.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNUTI log : Contact</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="style.css" /> 
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            SNUTI <span class="log">log</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li><a href="method.html">How to Log</a></li>
+                <li><a href="archives.html">Archives</a></li>
+                <li><a href="write.html">Log Now</a></li>
+                <li><a href="contact.html" style="color: var(--log-color);">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="contact">
+        <div class="contact-box">
+            <h2>함께 이야기를 쌓아가요</h2>
+            <p>
+                어떤 이야기를 적어야 할지 고민되시나요?<br>
+                혹은 이 기록의 여정에 운영진으로 함께하고 싶으신가요?<br>
+                언제든 편하게 연락주세요.
+            </p>
+            
+            <div class="contact-actions">
+                <a href="mailto:rameelee@snu.ac.kr" class="contact-btn primary">문의하기 (Email)</a>
+                <button class="contact-btn secondary" onclick="toggleTeam()">SNUTI log 친구들</button>
+            </div>
+
+            <div id="team-area" class="team-hidden-area">
+                <div class="team-scroll-wrapper">
+                    <div class="member-card">
+                        <div class="member-icon">🌱</div>
+                        <h3>전원준</h3>
+                        <span class="member-role">Planning Lead</span>
+                        <p class="member-desc">"한마디"</p>
+                        <a href="mailto:juneie24@snu.ac.kr" class="member-email">juneie24@snu.ac.kr</a>
+                    </div>
+
+                    <div class="member-card">
+                        <div class="member-icon">✍️</div>
+                        <h3>이희서</h3>
+                        <span class="member-role">Editor</span>
+                        <p class="member-desc">"여러분의 빛나는 경험을 뉴스레터로 담아냅니다."</p>
+                        <a href="mailto:rameelee@snu.ac.kr" class="member-email">rameelee@snu.ac.kr</a>
+                    </div>
+
+                    <div class="member-card">
+                        <div class="member-icon">📬</div>
+                        <h3>YOU</h3>
+                        <span class="member-role">writer</span>
+                        <p class="member-desc">"SNUTI log는 여러분의 이야기로 완성됩니다!"</p>
+                        <a href="mailto:rameelee@snu.ac.kr" class="member-email">글 보내기</a>
+                    </div>
+                </div>
+            </div>
+
+            <br><br>
+            <p style="font-size: 0.9rem; opacity: 0.7;">
+                * 작성된 글의 주인공에게 연락하고 싶다면, 해당 글의 하단 연락처를 참고해주세요.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <strong>SNUTI log</strong>
+        <p>서울대학교 첨단융합학부 학생 활동 아카이빙 커뮤니티</p>
+        <p>&copy; 2026 SNUTI log. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleTeam() {
+            const teamArea = document.getElementById('team-area');
+            const btn = document.querySelector('.contact-btn.secondary');
+            teamArea.classList.toggle('open');
+            btn.innerText = teamArea.classList.contains('open') ? "닫기 X" : "SNUTI log 친구들";
+        }
+    </script>
+</body>
+</html>
