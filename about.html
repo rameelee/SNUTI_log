@@ -6,13 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SNUTI log : About</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css" /> 
+    <style>
+        /* About 페이지 전용 시각화 스타일 */
+        .intro-full-section {
+            background: #fff;
+            padding: 60px 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            margin-bottom: 80px;
+            line-height: 1.8;
+        }
+        .intro-full-section h3 { color: var(--snuti-blue); margin-bottom: 25px; font-size: 1.8rem; }
+        .intro-full-section p { margin-bottom: 20px; color: #444; font-size: 1.05rem; text-align: justify; }
+
+        /* 핵심 가치 카드 (사업계획서 목표 시각화) */
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .vision-card {
+            background: #f8fafc;
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid #edf2f7;
+            transition: 0.3s;
+        }
+        .vision-card:hover { transform: translateY(-10px); background: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .vision-card i { font-size: 2.5rem; color: var(--snuti-mint); margin-bottom: 20px; }
+        .vision-card h4 { font-size: 1.15rem; margin-bottom: 12px; color: var(--snuti-blue); }
+        .vision-card p { font-size: 0.9rem; color: var(--text-gray); line-height: 1.5; }
+
+        /* 학년별 로드맵 (대상 시각화) */
+        .roadmap-container {
+            position: relative;
+            margin-top: 60px;
+            padding: 40px;
+            background: var(--snuti-blue);
+            border-radius: 30px;
+            color: #fff;
+        }
+        .roadmap-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .roadmap-item:last-child { margin-bottom: 0; }
+        .year-label {
+            background: var(--exp-color);
+            color: var(--snuti-blue);
+            font-weight: 900;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            min-width: 100px;
+            text-align: center;
+        }
+        .roadmap-content h4 { font-size: 1.3rem; margin-bottom: 8px; color: var(--exp-color); }
+        .roadmap-content p { font-size: 1rem; opacity: 0.9; line-height: 1.6; }
+
+        @media (max-width: 1024px) {
+            .vision-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .vision-grid { grid-template-columns: 1fr; }
+            .roadmap-item { flex-direction: column; gap: 15px; }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">
-            SNUTI <span class="log">log</span>
-        </a>
+        <a href="index.html" class="logo">SNUTI <span class="log">log</span></a>
         <nav>
             <ul>
                 <li><a href="about.html" style="color: var(--log-color);">About</a></li>
@@ -24,58 +94,82 @@
         </nav>
     </header>
 
-    <section id="about">
+    <section>
         <div class="section-header">
-            <h2>About SNUTI Log</h2>
-            <p>우리의 일상을 기록하고, 서로의 영감이 됩니다.</p>
-        </div>
-        <div class="about-content">
-            <div class="about-text">
-                <h3>공식적인 이야기 너머,<br>진짜 우리들의 성장기</h3>
-                <p>
-                    SNUTI log는 서울대학교 첨단융합학부 학생들이 함께 만들어가는 꿈과 도전의 여정을 기록하는 공간입니다. 
-                    화려한 결과물뿐만 아니라, 평범한 학교 생활과 일상 속에서 일어나는 작은 성장의 순간들을 포착합니다.
-                </p>
-                <p>
-                    첨단융합학부의 교수진과 학생들은 열정적으로 소통하며 시너지를 내고 있습니다. 
-                    우리는 이 소중한 연결이 휘발되지 않고, 서로에게 영감이 되어 '실천'으로 이어지길 바랍니다.
-                </p>
-                
-                <button class="btn-read-more" onclick="toggleAbout()">소개글 전문 확인하기 ▾</button>
-            </div>
-
-            <div class="quote-box">
-                <p>
-                    "SNUTI log가 자신의 이야기를 다른 친구들과 나누고 기록하는 첨단융합학부의 일기장이 되길 바랍니다. 
-                    각각의 이야기들은 서로에게 특별한 배움과 새로운 영감을 나눠줄 것입니다."
-                </p>
-                <br>
-                <strong>- SNUTI log 운영진 드림</strong>
-            </div>
+            <h2>Our Story</h2>
+            <p>공식적인 지표 너머, 첨단융합학부의 진짜 이야기를 기록합니다.</p>
         </div>
 
-        <div id="about-full-text" class="about-hidden-area">
-            <div class="full-text-content">
-                <h4>왜 SNUTI Log인가요?</h4>
-                <p>
-                    첨단융합학부에는 SNUTI.ExP( )를 비롯한 여러 프로그램과 활동의 기회들이 주어집니다. 
-                    그리고 수많은 학생들과 교수진의 노력으로 친구들과 함께 꾸준히 성장할 수 있게 됩니다.
-                    SNUTI log는 이러한 환경 속에서 구성원 간의 소통과 연결을 강화시켜 시너지를 내며 성장하는 데에 도움이 되고자 만들어졌습니다.
-                </p>
-                <br>
-                <h4>기록의 힘을 믿습니다</h4>
-                <p>
-                    그동안 학교생활을 돌이켜보면 교수님들과 학생들이 교류하려 하시는 노력들이 정말 많았습니다. 
-                    그러나 한편으로는 서로가 서로에게 어떤 영향을 주고 어떤 것들을 함께 이루어갔는지를 공유하기가 힘든 것에 아쉬운 마음이 항상 있었습니다.
-                </p>
-                <p>
-                    그렇기에 SNUTI log를 통해 서로의 이야기를 들으며 영감을 받고 실천으로 옮겨 
-                    각자만의 새로운 이야기를 만들어갈 수 있다면 뜻깊은 성장을 이룰 수 있을 것이라 생각합니다.
-                </p>
-                <br>
-                <p>
-                    부담 없이 주변에 말하지 못했던 여러분의 빛나는 이야기들을 함께 만드는 SNUTI log에 기록하고 나눠주세요. ☺️
-                </p>
+        <div class="intro-full-section">
+            <h3>왜 SNUTI Log인가요?</h3>
+            <p>
+                첨단융합학부에는 SNUTI.ExP( )를 비롯한 여러 프로그램과 활동의 기회들이 주어집니다. 
+                수많은 학생들과 교수진의 노력으로 우리는 친구들과 함께 꾸준히 성장하고 있습니다. 
+                하지만 그 과정에서 생겨나는 소중한 영감과 소통의 순간들은 기록되지 않으면 쉽게 휘발되곤 합니다.
+            </p>
+            <p>
+                SNUTI log는 구성원 간의 소통과 연결을 강화하여 성장의 시너지를 내기 위해 탄생했습니다. 
+                그동안 학교생활을 돌이켜보면 교수님들과 학생들이 교류하려는 수많은 노력들이 있었지만, 
+                서로가 서로에게 어떤 긍정적인 영향을 주고받았는지를 투명하게 공유할 아카이브가 부족했습니다.
+            </p>
+            <p>
+                우리는 기록의 힘을 믿습니다. 누군가의 사소한 '느낀 점'이 다른 이에게는 거대한 '실천'의 계기가 될 수 있습니다. 
+                부담 없이 주변에 말하지 못했던 여러분의 빛나는 이야기들을 함께 나누고 기록해주세요.
+            </p>
+        </div>
+
+        <div class="section-header">
+            <h2 style="font-size: 2rem;">Strategic Values</h2>
+            <p>SNUTI log가 지향하는 4가지 핵심 가치입니다.</p>
+        </div>
+        <div class="vision-grid">
+            <div class="vision-card">
+                <i class="fa-solid fa-box-archive"></i>
+                <h4>체계적 아카이빙</h4>
+                <p>파편화된 활동 기록을 통합하여 학부의 공식적인 디지털 자산으로 축적합니다.</p>
+            </div>
+            <div class="vision-card">
+                <i class="fa-solid fa-bridge"></i>
+                <h4>소통의 가교</h4>
+                <p>학생과 학생, 나아가 교수와 학생 간의 정보 비대칭을 해소하고 연결합니다.</p>
+            </div>
+            <div class="vision-card">
+                <i class="fa-solid fa-dna"></i>
+                <h4>학부 정체성 구축</h4>
+                <p>도전과 협력의 문화를 기록을 통해 공유하고 학부 고유의 스토리를 만듭니다.</p>
+            </div>
+            <div class="vision-card">
+                <i class="fa-solid fa-chart-line"></i>
+                <h4>데이터 기반 분석</h4>
+                <p>축적된 기록을 바탕으로 교육 프로그램의 실질적 효과를 분석하고 개선합니다.</p>
+            </div>
+        </div>
+
+        <div class="section-header" style="margin-top: 100px;">
+            <h2 style="font-size: 2rem;">Participation Roadmap</h2>
+            <p>학년별 경험의 결에 따른 맞춤형 기록을 장려합니다.</p>
+        </div>
+        <div class="roadmap-container">
+            <div class="roadmap-item">
+                <div class="year-label">1학년</div>
+                <div class="roadmap-content">
+                    <h4>탐색과 적응의 기록</h4>
+                    <p>실리콘밸리 탐방기 및 SNUTI.ExP( ) 프로그램 참여 후기, 대학 생활의 첫 설렘과 시행착오를 기록합니다.</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="year-label">2학년</div>
+                <div class="roadmap-content">
+                    <h4>심화와 협업의 기록</h4>
+                    <p>TRAIL, socieTI 등 학생 단체 활동 후기와 본격적인 전공 탐색 및 선택 과정을 동료들과 나눕니다.</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="year-label">3학년</div>
+                <div class="roadmap-content">
+                    <h4>전문성과 확장의 기록</h4>
+                    <p>인턴십 활동, 공모전 경험, 산학 협력 프로젝트 등 사회로 뻗어나가는 전문적인 성장 궤적을 기록합니다.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -85,14 +179,5 @@
         <p>서울대학교 첨단융합학부 학생 활동 아카이빙 커뮤니티</p>
         <p>&copy; 2026 SNUTI log. All rights reserved.</p>
     </footer>
-
-    <script>
-        function toggleAbout() {
-            const aboutArea = document.getElementById('about-full-text');
-            const btn = document.querySelector('.btn-read-more');
-            aboutArea.classList.toggle('open');
-            btn.innerText = aboutArea.classList.contains('open') ? "소개글 접기 ▴" : "소개글 전문 확인하기 ▾";
-        }
-    </script>
 </body>
 </html>
