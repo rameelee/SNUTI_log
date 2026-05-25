@@ -428,16 +428,17 @@ footer {
 
 /* [모바일 반응형 수정 완료] */
 @media (max-width: 768px) {
-    /* 가로 스크롤(글/박스 잘림) 방지 및 줄바꿈 최적화 */
+    /* 가로 스크롤 방지 및 줄바꿈 최적화 */
     body, html {
         overflow-x: hidden;
     }
     * {
-        word-break: keep-all; 
+        /* word-break: keep-all; 이 모바일에서 레이아웃을 깨는 원인이 될 수 있어 삭제하거나 변경합니다. */
+        word-break: normal; 
         overflow-wrap: break-word; 
     }
 
-    /* 헤더 메뉴 모바일 상시 노출 및 정렬 */
+    /* 헤더 메뉴 */
     header { 
         flex-direction: column; 
         padding: 15px 20px; 
@@ -456,19 +457,25 @@ footer {
         font-size: 0.9rem; 
     }
 
-    /* Hero 섹션 텍스트 및 패딩 조정 */
-    .hero { flex-direction: column; height: auto; padding: 120px 20px 60px 20px; text-align: center; }
-    .hero-text { margin-bottom: 50px; }
-    .hero h1 { font-size: 2.2rem; } 
+    /* Hero 섹션 */
+    .hero { flex-direction: column; height: auto; padding: 100px 20px 50px 20px; text-align: center; }
+    .hero-text { margin-bottom: 40px; }
+    .hero h1 { font-size: 2rem; } 
     .hero p { font-size: 1rem; } 
-    svg.graph { width: 100%; height: auto; max-width: 350px; }
+    svg.graph { width: 100%; height: auto; max-width: 300px; }
 
-    /* 공통 여백 및 폰트 크기 최적화 (꽉 차는 느낌 완화) */
-    section { padding: 60px 20px; } 
-    .about-text h3 { font-size: 1.6rem; }
-    .about-text p { font-size: 0.95rem; }
+    /* 공통 여백 최적화 (사진 1 해결: 좌우 패딩을 더 넉넉하게) */
+    section { padding: 50px 25px; } /* 좌우 25px로 여백 확대 */
+    
+    .about-text h3 { font-size: 1.5rem; }
+    /* 사진 3 해결: 단어 간격 벌어짐 방지를 위해 명시적으로 왼쪽 정렬 */
+    .about-text p { 
+        font-size: 0.95rem; 
+        text-align: left !important; 
+        letter-spacing: -0.5px; /* 글자 간격을 살짝 좁혀 가독성 향상 */
+    }
 
-    /* 그리드 레이아웃 1열 강제 및 박스 크기 유연화 */
+    /* 그리드 레이아웃 */
     .about-content, .steps-grid, .post-list-container { 
         grid-template-columns: 1fr; 
     }
@@ -477,31 +484,39 @@ footer {
         padding: 0;
     }
     .member-card { 
-        min-width: 0; 
         width: 100%; 
         max-width: 320px; 
         margin: 0 auto; 
-        box-sizing: border-box;
     }
 
-    /* 슬로건 텍스트 크기 축소 */
-    .slogan-text { font-size: 1.1rem; word-break: keep-all; }
+    /* 슬로건 텍스트 (사진 2 해결) */
+    .slogan-filter-container {
+        padding: 20px 0;
+    }
+    .slogan-text { 
+        font-size: 1.2rem; /* 폰트 크기 적절히 조절 */
+        line-height: 1.6;
+        word-break: keep-all; 
+    }
     .mobile-break { display: block; } 
 
-    /* 텍스트 간격 벌어짐 문제 해결을 위한 왼쪽 정렬 강제 */
-    .about-hidden-area p, .full-text-content p, .modal-body { 
+    /* 사진 3 해결: 텍스트 간격 벌어짐을 막기 위해 텍스트가 들어가는 모든 곳에 왼쪽 정렬 강제 */
+    .about-hidden-area p, 
+    .full-text-content p, 
+    .modal-body,
+    .step-card p,
+    p { 
         text-align: left !important; 
     }
 
-    /* 모달 창 모바일 최적화 */
+    /* 모달 창 */
     .modal-content {
-        width: 95%; 
+        width: 90%; /* 모바일에서 좌우 여백 확보 */
         margin: 0 auto;
     }
     .modal-header { padding: 20px; }
     .modal-body { padding: 20px; font-size: 1rem; }
 }
-
 /* PC에서는 줄바꿈 숨김 */
 @media (min-width: 769px) {
     .mobile-break { display: none; }
