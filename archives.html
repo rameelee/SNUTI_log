@@ -89,23 +89,19 @@
         <p style="margin-top: 10px;">&copy; 2026 SNUTI log. All rights reserved.</p>
     </footer>
 
-    <script>
+      <script src="data.js"></script>
+    
+      <script>
         const container = document.getElementById('post-container');
         const filterWords = document.querySelectorAll('.filter-word');
         const searchInput = document.getElementById('search-input');
         const yearFilter = document.getElementById('year-filter');
-        
+    
         let currentFilterTag = 'All';
-
-        // 데이터베이스 (정적 데이터 - contact 항목 추가됨)
-        const postData = [
-            {
-                id: 1, tag: "꿈", title: "Seoul to Silicon: 2025 동계 실리콘밸리 탐방기", author: "이희서", contact: "LinkedIn-Heeseo Lee", date: "2026-02-01",
-                desc: "첨융 25학번의 동계 실리콘밸리 연수 수기",
-                content: `이곳에 본문 내용을 입력하세요.`
-            }
-        ];
-
+    
+        // postData는 위에서 불러온 data.js에서 이미 선언되었으므로 여기서 다시 선언하지 않습니다.
+        // 기존의 const postData = ... 코드는 삭제합니다.
+    
         renderPosts();
 
         // 키워드 필터링 이벤트 (슬로건)
