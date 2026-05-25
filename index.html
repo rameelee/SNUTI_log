@@ -175,9 +175,11 @@
             document.getElementById('m-tag').innerText = post.tag;
             document.getElementById('m-tag').style.color = getTagColor(post.tag);
             document.getElementById('m-title').innerText = post.title;
-            document.getElementById('m-info').innerText = `${post.author} | ${post.date}`;
+            document.getElementById('m-info').innerHTML = `
+                ${post.author} | ${post.date} 
+                <br><span style="color: var(--log-color); font-weight: bold; margin-top: 5px; display: inline-block;">✉️ Contact: ${post.contact || '기재되지 않음'}</span>
+            `;
             document.getElementById('m-body').innerText = post.content;
-            document.getElementById('m-contact').innerText = post.contact;
             
             document.getElementById('post-modal').classList.add('open');
             document.body.style.overflow = 'hidden'; 
