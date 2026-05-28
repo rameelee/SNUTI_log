@@ -194,6 +194,28 @@
             const colors = { '함께': '#FF6B6B', '꿈': '#FFB703', '미래': '#00B4C5', '도전': '#4D96FF' };
             return colors[tag] || '#555';
         }
+
+        function sharePost() {
+            const title = document.getElementById('m-title').innerText;
+            const url = window.location.href; // 현재 페이지 주소
+        
+            if (navigator.share) {
+                // 모바일 기기 등 Web Share API 지원 브라우저
+                navigator.share({
+                    title: `SNUTI log: ${title}`,
+                    text: 'SNUTI log에서 이 흥미로운 이야기를 확인해보세요!',
+                    url: url
+                }).catch(console.error);
+            } else {
+                // 미지원 브라우저 (PC 등)에서는 클립보드 복사
+                navigator.clipboard.writeText(url).then(() => {
+                    alert("게시글 링크가 클립보드에 복사되었습니다!");
+                }).catch(() => {
+                    alert("링크 복사에 실패했습니다.");
+                });
+            }
+        }
+
     </script>
 </body>
 </html>
