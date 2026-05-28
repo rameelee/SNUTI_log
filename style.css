@@ -520,3 +520,21 @@ footer a:hover {
      color: #fff !important;
      text-decoration: none;
 }
+
+.btn-share {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: var(--snuti-mint-light);
+    color: var(--snuti-blue);
+    border: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-share:hover {
+    background-color: var(--snuti-mint);
+    color: white;
+}
